@@ -53,3 +53,24 @@ plt.title("LECHE TANQUE DIA")
 plt.grid(True)
 
 st.pyplot(fig)
+
+# -------------------------------
+# GRAFICA
+# -------------------------------
+st.subheader("📊 Producción de leche por día")
+df['FECHA'] = pd.to_datetime(df['FECHA'])
+df['MES'] = df['FECHA'].dt.to_period('M')
+
+# Filtrar los datos del último mes
+ultimo_mes = df['MES'].max()
+df_ultimo_mes = df[df['MES'] == ultimo_mes]
+
+# Graficar la leche tanque día para el último mes
+sns.lineplot(x=df_ultimo_mes["FECHA"], y=df_ultimo_mes["LECHE TANQUE DIA"], hue=df_ultimo_mes["FINCA"])
+plt.xticks(rotation=45)
+plt.grid(True)
+plt.title("LECHE TANQUE DIA - Último Mes")
+plt.xlabel("FECHA")
+plt.ylabel("LECHE TANQUE DIA")
+
+st.pyplot(fig)
