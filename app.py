@@ -76,7 +76,7 @@ st.pyplot(fig2)
 df['FECHA'] = df['FECHA'].dt.date
 # Cambia aggfunc a 'sum' o 'mean' según lo que quieras mostrar
 pivot = df.pivot_table(index='FECHA', columns='FINCA', values='LECHE TANQUE DIA', aggfunc='sum', fill_value=0)
-
+pivot['Suma Dia'] = pivot.sum(axis=1)
 st.subheader(f"Producción por finca")
 st.dataframe(pivot.sort_index(ascending=False), use_container_width=True)
 
