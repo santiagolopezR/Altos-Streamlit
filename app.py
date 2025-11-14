@@ -10,6 +10,7 @@ st.title("📈 Producción de Leche – Altos de Medina")
 url_produccion = "https://docs.google.com/spreadsheets/d/1zEiTqZ-9WnpwcpjV_LFRF9IcwHbqM04t/export?format=csv&gid=1070972783"
 url_pastos = "https://docs.google.com/spreadsheets/d/1zEiTqZ-9WnpwcpjV_LFRF9IcwHbqM04t/export?format=csv&gid=392341065"
 
+
 # Cargar datos
 df = pd.read_csv(url_produccion)
 dfpasto = pd.read_csv(url_pastos)
