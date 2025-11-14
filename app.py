@@ -41,7 +41,7 @@ dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 # -------------------------------
 st.subheader("📊 Producción de leche por día")
 
-fig, ax = plt.subplots(figsize=(10,5))
+fig, ax = plt.subplots(figsize=(15,5))
 sns.lineplot(data=df, x="FECHA", y="LECHE TANQUE DIA", hue="FINCA", ax=ax)
 plt.xticks(rotation=45)
 plt.title("LECHE TANQUE DIA")
