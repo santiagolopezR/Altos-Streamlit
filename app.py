@@ -45,7 +45,7 @@ fig, ax = plt.subplots(figsize=(15,5))
 sns.lineplot(data=df, x="FECHA", y="LECHE TANQUE DIA", hue="FINCA", ax=ax)
 plt.xticks(rotation=45)
 plt.title("LECHE TANQUE DIA")
-plt.grid(True)
+
 
 st.pyplot(fig)
 
