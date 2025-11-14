@@ -72,7 +72,8 @@ ax2.grid(True)
 
 st.pyplot(fig2)
 
-#--------------------------- tabla 
+#--------------------------- tabla -----------------
+df['FECHA'] = df['FECHA'].dt.date
 # Cambia aggfunc a 'sum' o 'mean' según lo que quieras mostrar
 pivot = df.pivot_table(index='FECHA', columns='FINCA', values='LECHE TANQUE DIA', aggfunc='sum', fill_value=0)
 
