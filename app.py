@@ -86,4 +86,5 @@ df["promedio"] = df["LECHE TANQUE DIA"]/df["NUMERO VACAS ORDEÑO"]
 fig3, ax3 = plt.subplots(figsize=(10,5))
 sns.barplot(data=df, x= "MES", y= "promedio", hue="FINCA",errorbar=None)
 ax3.set_title("Promedio por Finca")
+plt.xticks(rotation=50
 st.pyplot(fig3)
