@@ -81,3 +81,7 @@ pivot['Suma Dia'] = pivot.sum(axis=1)
 st.subheader(f"Producción por finca")
 st.dataframe(pivot.sort_index(ascending=False), use_container_width=True)
 
+#-------- grafica-----
+df["promedio"] = df["LECHE TANQUE DIA"]/df["VACAS ORDEÑO DIA"]
+fig3, ax3 = plt.subplots(figsize=(10,5))
+sns.barolplot(data=df, x= "FECHA", y= "promedio", hue="FINCA")
