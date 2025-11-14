@@ -32,14 +32,9 @@ dfpasto = dfpasto.dropna(subset=["FECHA"])
 dfpasto["LOTE"] = dfpasto["LOTE"].astype(str).str.strip()
 dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 
-# IQR para eliminar outliers del aforo
-Q1 = dfpasto["AFORO PLATOMETRO (Kg/m2)"].quantile(0.25)
-Q3 = dfpasto["AFORO PLATOMETRO (Kg/m2)"].quantile(0.75)
-IQR = Q3 - Q1
-limite_inf = Q1 - 1.5 * IQR
-limite_sup = Q3 + 1.5 * IQR
-dfpasto = dfpasto[(dfpasto["AFORO PLATOMETRO (Kg/m2)"] >= limite_inf) &
-                  (dfpasto["AFORO PLATOMETRO (Kg/m2)"] <= limite_sup)]
+# -------------------------------
+# (IQR eliminado según tu petición)
+# -------------------------------
 
 # -------------------------------
 # GRAFICA
@@ -57,7 +52,7 @@ st.pyplot(fig)
 # -------------------------------
 # GRAFICA
 # -------------------------------
-st.subheader("📊 Producción de leche por día")
+st.subheader("📊 Producción de leche por día (último mes)")
 df['FECHA'] = pd.to_datetime(df['FECHA'])
 df['MES'] = df['FECHA'].dt.to_period('M')
 
@@ -66,11 +61,12 @@ ultimo_mes = df['MES'].max()
 df_ultimo_mes = df[df['MES'] == ultimo_mes]
 
 # Graficar la leche tanque día para el último mes
-sns.lineplot(x=df_ultimo_mes["FECHA"], y=df_ultimo_mes["LECHE TANQUE DIA"], hue=df_ultimo_mes["FINCA"])
-plt.xticks(rotation=45)
-plt.grid(True)
-plt.title("LECHE TANQUE DIA - Último Mes")
-plt.xlabel("FECHA")
-plt.ylabel("LECHE TANQUE DIA")
+fig2, ax2 = plt.subplots(figsize=(10,5))
+sns.lineplot(data=df_ultimo_mes, x="FECHA", y="LECHE TANQUE DIA", hue="FINCA", ax=ax2)
+plt.setp(ax2.get_xticklabels(), rotation=45)
+ax2.set_title("LECHE TANQUE DIA - Último Mes")
+ax2.set_xlabel("FECHA")
+ax2.set_ylabel("LECHE TANQUE DIA")
+ax2.grid(True)
 
-st.pyplot(fig)
+st.pyplot(fig2)
