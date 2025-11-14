@@ -85,3 +85,5 @@ st.dataframe(pivot.sort_index(ascending=False), use_container_width=True)
 df["promedio"] = df["LECHE TANQUE DIA"]/df["VACAS ORDEÑO DIA"]
 fig3, ax3 = plt.subplots(figsize=(10,5))
 sns.barolplot(data=df, x= "FECHA", y= "promedio", hue="FINCA")
+ax3.title("Promedio por Finca")
+st.pyplot(fig2)
