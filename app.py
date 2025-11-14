@@ -20,7 +20,7 @@ dfpasto = pd.read_csv(url_pastos)
 df.columns = df.columns.str.strip()
 df["FINCA"] = df["FINCA"].str.strip().str.upper()
 df = df[df["FINCA"] != "ABAJO"]
-
+df["FECHA"] = pd.to_datetime(df["FECHA"])
 df["LECHE TANQUE DIA"] = pd.to_numeric(df["LECHE TANQUE DIA"], errors='coerce')
 df = df.dropna(subset=["LECHE TANQUE DIA"])
 
