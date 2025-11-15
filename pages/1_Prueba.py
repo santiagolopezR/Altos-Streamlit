@@ -3,7 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-st.title("📈 Producción de Leche – Altos de Medina")
+st.title("🌱 Gestión de pastoreo – Altos de Medina")
 
 # URLs de Google Sheets
 url_produccion = "https://docs.google.com/spreadsheets/d/1zEiTqZ-9WnpwcpjV_LFRF9IcwHbqM04t/export?format=csv&gid=1070972783"
