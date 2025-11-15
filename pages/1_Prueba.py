@@ -34,6 +34,6 @@ dfpasto["LOTE"] = dfpasto["LOTE"].astype(str).str.strip()
 dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 
 #------ grafica-----
-fig,ax = plt.subplots(figsize=(15,10)
+fig,ax = plt.subplots((figsize=(15,10))
 sns.barplot(data=dfpasto, x="FECHA", y="LOTE")
 st.pyplot(fig)
