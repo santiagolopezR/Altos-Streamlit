@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -35,6 +36,10 @@ dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 
 dfpasto["MES_ANO"] = dfpasto["FECHA"].dt.to_period("M").astype(str)
 dfpasto['AFORO PLATOMETRO (Kg/m2)']= dfpasto['AFORO PLATOMETRO (Kg/m2)'].astype(str).str.replace(",",".")
+dfpasto = dfpasto.sort_values("FECHA")
+
+
+
 #------ grafica-----
 fig, ax = plt.subplots(figsize=(15,10))
 sns.lineplot(data=dfpasto, x="MES_ANO", y="AFORO PLATOMETRO (Kg/m2)", errorbar=None,hue="FINCA", ax=ax)
