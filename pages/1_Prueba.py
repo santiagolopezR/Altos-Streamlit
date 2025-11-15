@@ -65,15 +65,11 @@ st.subheader("📊 Aforo por finca")
 
 # Seleccionar finca
 finca_elegida = st.selectbox("Selecciona la finca", dfpasto["FINCA"].unique())
-def grafica_aforo_por_finca(df, finca):
-    """
-    Genera una gráfica del aforo por mes para una finca específica.
-    df: dataframe dfpasto ya limpio
-    finca: nombre exacto de la finca (string)
-    """
+def grafica_aforo_por_finca(dfpasto, finca):
+    
 
     # Filtrar finca
-    data = df[df["FINCA"] == finca].copy()
+    data = dfpasto[dfpasto["FINCA"] == finca].copy()
 
     if data.empty:
         st.warning(f"No hay datos para la finca: {finca}")
@@ -81,7 +77,7 @@ def grafica_aforo_por_finca(df, finca):
 
     # Crear figura
     fig, ax = plt.subplots(figsize=(15, 10))
-    sns.lineplot(
+    sns.barplot(
         data=data,
         x="MES_ANO",
         y="AFORO PLATOMETRO (Kg/m2)",
