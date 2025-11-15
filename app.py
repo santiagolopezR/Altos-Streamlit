@@ -35,6 +35,8 @@ dfpasto["LOTE"] = dfpasto["LOTE"].astype(str).str.strip()
 dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 
 #------ paginas
+streamlit run streamlit_app.py
+
 st.set_page_config(
     page_title="Hello",
     page_icon="👋",
