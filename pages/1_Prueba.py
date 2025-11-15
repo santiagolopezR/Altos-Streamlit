@@ -40,3 +40,10 @@ sns.barplot(data=dfpasto, x="MES_ANO", y="AFORO PLATOMETRO (Kg/m2)", hue="FINCA"
 ax.set_title("Aforo promedio mes")
 plt.xticks(rotation=45)
 st.pyplot(fig)
+
+
+# Muestra los primeros 10 valores de la columna que estás graficando
+st.write("Verificando los valores que recibe la gráfica (Primeros 10):")
+st.dataframe(dfpasto.head(10)[['AFORO PLATOMETRO (Kg/m2)', 'MES_ANO']])
+
+# Si los valores mostrados son negativos, el error está en la limpieza/agregación.
