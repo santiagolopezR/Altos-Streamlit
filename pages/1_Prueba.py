@@ -54,8 +54,8 @@ df_filtrado = (dfpasto['FINCA'] == "ARRIBA") & (dfpasto['LOTE'].isin(["1", "2"])
 df_filtrado2 = (dfpasto['FINCA'] == "LA POSADA") & (dfpasto['LOTE'].isin(["ALTA"]))
 
 
-dfpasto= dfpasto[~df_filtrado|df_filtrado2]
-
+dfpasto= dfpasto[~df_filtrado]
+dfpasto= dfpasto[~df_filtrado2]
 
 
 
