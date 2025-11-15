@@ -45,6 +45,8 @@ dfpasto["AFORO PLATOMETRO (Kg/m2)"] = (
 dfpasto["AFORO PLATOMETRO (Kg/m2)"] = pd.to_numeric(
     dfpasto["AFORO PLATOMETRO (Kg/m2)"], errors="coerce"
 )
+# Eliminar outliers mayores a 4
+dfpasto = dfpasto[dfpasto["AFORO PLATOMETRO (Kg/m2)"] <= 4]
 dfpasto = dfpasto.sort_values("FECHA")
 
 
