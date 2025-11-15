@@ -58,3 +58,48 @@ ax.set_title("Aforo promedio mes")
 plt.xticks(rotation=45)
 ax.grid(True)
 st.pyplot(fig)
+
+
+#------ grafica ------
+st.subheader("📊 Aforo por finca")
+
+# Seleccionar finca
+finca_elegida = st.selectbox("Selecciona la finca", dfpasto["FINCA"].unique())
+def grafica_aforo_por_finca(df, finca):
+    """
+    Genera una gráfica del aforo por mes para una finca específica.
+    df: dataframe dfpasto ya limpio
+    finca: nombre exacto de la finca (string)
+    """
+
+    # Filtrar finca
+    data = df[df["FINCA"] == finca].copy()
+
+    if data.empty:
+        st.warning(f"No hay datos para la finca: {finca}")
+        return
+
+    # Crear figura
+    fig, ax = plt.subplots(figsize=(15, 10))
+    sns.lineplot(
+        data=data,
+        x="MES_ANO",
+        y="AFORO PLATOMETRO (Kg/m2)",
+        hue="LOTE",
+        errorbar=None,
+        marker="o",
+        ax=ax
+    )
+
+    ax.set_title(f"Aforo promedio mes – {finca}", fontsize=16)
+    plt.xticks(rotation=45)
+    ax.grid(True)
+
+    st.pyplot(fig)
+
+
+
+
+
+# Llamar la función
+grafica_aforo_por_finca(dfpasto, finca_elegida)
