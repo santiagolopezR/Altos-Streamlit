@@ -49,14 +49,12 @@ dfpasto["AFORO PLATOMETRO (Kg/m2)"] = pd.to_numeric(
 dfpasto = dfpasto[dfpasto["AFORO PLATOMETRO (Kg/m2)"] <= 4]
 dfpasto = dfpasto.sort_values("FECHA")
 
-# FILTRADO SOLICITADO: ELIMINAR LOTES Y
+# FILTRADO ELIMINAR LOTES 
 
 # Creamos la máscara de las filas que queremos ELIMINAR
-mascara_a_eliminar = ((dfpasto 'FINCA'] == 'ARRIBA' )(dfpasto"LOTE"] isin(l'Lote 1','Lote 2']))
+mascara_a_eliminar = ((dfpasto ['FINCA'] == 'ARRIBA' )(dfpasto["LOTE"] isin(['Lote 1','Lote 2']))
 # Sobreescribimos dfpasto con el filtro
-(-) para mantener el resto de las filas
-dfpasto =
-dfpasto[~mascara_a_eliminar].copy ()
+dfpasto =dfpasto[~mascara_a_eliminar].copy ()
 
 
 
