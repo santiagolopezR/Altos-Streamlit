@@ -35,5 +35,5 @@ dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 
 #------ grafica-----
 fig, ax = plt.subplots(figsize=(15,10))
-sns.barplot(data=dfpasto, x="FECHA", y="LOTE")
+sns.barplot(data=dfpasto, x="FECHA", y="AFORO PLATOMETRO (Kg/m2)")
 st.pyplot(fig)
