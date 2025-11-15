@@ -52,10 +52,13 @@ dfpasto = dfpasto.sort_values("FECHA")
 #eliminar lotes que no van
 
 
-dfpasto = (
+sinlotes = (
     (dfpasto['FINCA'] == 'ARRIBA') & 
     (dfpasto['LOTE'].isin(['Lote 1', 'Lote 2']))
 )
+
+dfpasto=dfpasto[~sinlotes].copy() 
+
 
 
 
