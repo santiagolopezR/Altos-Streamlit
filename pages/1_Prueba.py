@@ -37,7 +37,7 @@ dfpasto["MES_ANO"] = dfpasto["FECHA"].dt.to_period("M").astype(str)
 dfpasto['AFORO PLATOMETRO (Kg/m2)']= dfpasto['AFORO PLATOMETRO (Kg/m2)'].astype(str).str.replace(",",".")
 #------ grafica-----
 fig, ax = plt.subplots(figsize=(15,10))
-sns.lineplot(data=dfpasto, x="MES_ANO", y="AFORO PLATOMETRO (Kg/m2)", hue="FINCA", ax=ax)
+sns.lineplot(data=dfpasto, x="MES_ANO", y="AFORO PLATOMETRO (Kg/m2)", errorbar=None,hue="FINCA", ax=ax)
 ax.set_title("Aforo promedio mes")
 plt.xticks(rotation=45)
 st.pyplot(fig)
