@@ -65,7 +65,7 @@ st.pyplot(fig)
 
 
 #------ grafica ------
-st.subheader("📊 Aforo por finca")
+st.subheader("📊 Aforo por Lote")
 
 # Seleccionar finca
 finca_elegida = st.selectbox("Selecciona la finca", dfpasto["FINCA"].unique())
