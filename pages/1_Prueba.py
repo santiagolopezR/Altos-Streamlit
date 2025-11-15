@@ -52,7 +52,7 @@ dfpasto = dfpasto.sort_values("FECHA")
 # FILTRADO ELIMINAR LOTES 
 
 # Creamos la máscara de las filas que queremos ELIMINAR
-mascara_a_eliminar = ((dfpasto ['FINCA'] == 'ARRIBA' )(dfpasto["LOTE"] isin(['Lote 1','Lote 2']))
+mascara_a_eliminar = ((dfpasto ['FINCA'] == 'ARRIBA' )&(dfpasto["LOTE"] isin(['Lote 1','Lote 2']))
 # Sobreescribimos dfpasto con el filtro
 dfpasto =dfpasto[~mascara_a_eliminar].copy ()
 
