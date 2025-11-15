@@ -50,7 +50,8 @@ dfpasto = dfpasto[dfpasto["AFORO PLATOMETRO (Kg/m2)"] <= 4]
 dfpasto = dfpasto.sort_values("FECHA")
 
 # FILTRADO ELIMINAR LOTES 
-
+df_filtrado = dfpasto[(dfpasto['FINCA'] == "ARRIBA") & (dfpasto['LOTE'].isin(["1", "2"]))]
+dfpasto= dfpasto[~df_filtrado]
 
 
 
