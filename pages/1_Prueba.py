@@ -49,15 +49,6 @@ dfpasto["AFORO PLATOMETRO (Kg/m2)"] = pd.to_numeric(
 dfpasto = dfpasto[dfpasto["AFORO PLATOMETRO (Kg/m2)"] <= 4]
 dfpasto = dfpasto.sort_values("FECHA")
 
-#eliminar lotes que no van
-
-
-sinlotes = (
-    (dfpasto['FINCA'] == 'ARRIBA') & 
-    (dfpasto['LOTE'].isin(['Lote 1', 'Lote 2']))
-)
-
-dfpasto=dfpasto[~sinlotes].copy() 
 
 
 
