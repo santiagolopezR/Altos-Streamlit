@@ -1,1 +1,1 @@
-dfpasto.groupby(["FECHA"])["AFORO PLATOMETRO (KG/M2)"].mean()
+dfpasto.groupby(["FECHA"])["AFORO PLATOMETRO (Kg/m2)"].mean()
