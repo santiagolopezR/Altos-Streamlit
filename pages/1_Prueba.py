@@ -33,7 +33,6 @@ dfpasto = dfpasto.dropna(subset=["FECHA"])
 dfpasto["LOTE"] = dfpasto["LOTE"].astype(str).str.strip()
 dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 
-
-
-grupi=dfpasto.groupby(["FECHA"])["AFORO PLATOMETRO (Kg/m2)"].mean()
-st.table(grupi)
+#------ grafica-----
+fig,ax = plt.subplots(figsize=(15,10)
+sns.barplot(data=dfpasto, x=FECHA, y="LOTE")
