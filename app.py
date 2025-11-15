@@ -34,14 +34,10 @@ dfpasto = dfpasto.dropna(subset=["FECHA"])
 dfpasto["LOTE"] = dfpasto["LOTE"].astype(str).str.strip()
 dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 
-#------ paginas
+#------ sidebar de paginas
 
-st.set_page_config(
-    page_title="Hello",
-    page_icon="👋",
-)
 
-st.sidebar.success("Select a demo above.")
+st.sidebar.success("Seleccione una pagina🤌.")
 
 
 
