@@ -86,7 +86,7 @@ def grafica_aforo_por_finca(dfpasto, finca):
         y="AFORO PLATOMETRO (Kg/m2)",
         hue="LOTE",
         errorbar=None,
-        marker="o"
+        marker="o",
         ax=ax
     )
 
