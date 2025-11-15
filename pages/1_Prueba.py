@@ -37,5 +37,6 @@ dfpasto["MES_ANO"] = dfpasto["FECHA"].dt.to_period("M").astype(str)
 #------ grafica-----
 fig, ax = plt.subplots(figsize=(15,10))
 sns.barplot(data=dfpasto, x="MES_ANO", y="AFORO PLATOMETRO (Kg/m2)", hue="FINCA")
+plt.title("Aforo promedio mes")
 plt.xticks(rotation=45)
 st.pyplot(fig)
