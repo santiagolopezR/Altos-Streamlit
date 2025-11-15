@@ -42,7 +42,7 @@ dfpasto = dfpasto.sort_values("FECHA")
 
 #------ grafica-----
 fig, ax = plt.subplots(figsize=(15,10))
-sns.lineplot(data=dfpasto, x="MES_ANO", y="AFORO PLATOMETRO (Kg/m2)", errorbar=None,hue="FINCA", ax=ax)
+sns.lineplot(data=dfpasto, x="MES_ANO", y="AFORO PLATOMETRO (Kg/m2)", errorbar=None,hue="FINCA", ax=ax, marker="o")
 ax.set_title("Aforo promedio mes")
 plt.xticks(rotation=45)
 ax.grid(True)
