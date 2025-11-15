@@ -49,6 +49,15 @@ dfpasto["AFORO PLATOMETRO (Kg/m2)"] = pd.to_numeric(
 dfpasto = dfpasto[dfpasto["AFORO PLATOMETRO (Kg/m2)"] <= 4]
 dfpasto = dfpasto.sort_values("FECHA")
 
+#eliminar lotes que no van
+dfpasto
+
+dfpasto = (
+    (dfpasto['FINCA'] == 'ARRIBA') & 
+    (dfpasto['LOTE'].isin(['Lote 1', 'Lote 2']))
+)
+
+
 
 
 #------ grafica-----
@@ -77,12 +86,13 @@ def grafica_aforo_por_finca(dfpasto, finca):
 
     # Crear figura
     fig, ax = plt.subplots(figsize=(15, 10))
-    sns.barplot(
+    sns.lineplot(
         data=data,
         x="MES_ANO",
         y="AFORO PLATOMETRO (Kg/m2)",
         hue="LOTE",
         errorbar=None,
+        marker="o"
         ax=ax
     )
 
