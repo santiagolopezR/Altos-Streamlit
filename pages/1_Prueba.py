@@ -50,8 +50,12 @@ dfpasto = dfpasto[dfpasto["AFORO PLATOMETRO (Kg/m2)"] <= 4]
 dfpasto = dfpasto.sort_values("FECHA")
 
 # FILTRADO ELIMINAR LOTES 
-df_filtrado = (dfpasto['FINCA'] == "ARRIBA") & (dfpasto['LOTE'].isin(["1", "2"]))
-df_filtrado = (dfpasto['FINCA'] == "LA POSADA") & (dfpasto['LOTE'].isin(["ALTA"]))
+#df_filtrado = (dfpasto['FINCA'] == "ARRIBA") & (dfpasto['LOTE'].isin(["1", "2"]))
+
+# Sobrescribe dfpasto, restando ambas condiciones a la vez:
+dfpasto = dfpasto[~( ((dfpasto['FINCA'] == "ARRIBA") & (dfpasto['LOTE'].isin(["1", "2"]))) | ((dfpasto['FINCA'] == "LA POSADA") & (dfpasto['LOTE'].isin(["ALTA"]))) )]
+
+Este código eliminará de `dfpasto` todas las filas que cumplan *cualquiera* de las dos condiciones que especificaste.
 
 dfpasto= dfpasto[~df_filtrado]
 
