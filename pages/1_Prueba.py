@@ -35,7 +35,16 @@ dfpasto["LOTE"] = dfpasto["LOTE"].astype(str).str.strip()
 dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 
 dfpasto["MES_ANO"] = dfpasto["FECHA"].dt.to_period("M").astype(str)
-dfpasto['AFORO PLATOMETRO (Kg/m2)']= dfpasto['AFORO PLATOMETRO (Kg/m2)'].astype(str).str.replace(",",".")
+dfpasto["AFORO PLATOMETRO (Kg/m2)"] = (
+    dfpasto["AFORO PLATOMETRO (Kg/m2)"]
+    .astype(str)
+    .str.replace(",", ".", regex=False)
+    .str.strip()
+)
+
+dfpasto["AFORO PLATOMETRO (Kg/m2)"] = pd.to_numeric(
+    dfpasto["AFORO PLATOMETRO (Kg/m2)"], errors="coerce"
+)
 dfpasto = dfpasto.sort_values("FECHA")
 
 
