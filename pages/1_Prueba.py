@@ -51,6 +51,8 @@ dfpasto = dfpasto.sort_values("FECHA")
 
 # FILTRADO ELIMINAR LOTES 
 df_filtrado = (dfpasto['FINCA'] == "ARRIBA") & (dfpasto['LOTE'].isin(["1", "2"]))
+df_filtrado = (dfpasto['FINCA'] == "LA POSADA") & (dfpasto['LOTE'].isin(["ALTA"]))
+
 dfpasto= dfpasto[~df_filtrado]
 
 
