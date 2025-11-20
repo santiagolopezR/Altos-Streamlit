@@ -4,6 +4,29 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+from pydrive2.auth import GoogleAuth
+from pydrive2.drive import GoogleDrive
+import pandas as pd
+
+def load_from_drive(filename):
+    gauth = GoogleAuth()
+    gauth.LocalWebserverAuth()  # abre una ventana para autorizar
+    drive = GoogleDrive(gauth)
+
+    # Buscar archivo por nombre exacto
+    files = drive.ListFile({
+        'q': f"title = '{filename}' and trashed = false"
+    }).GetList()
+
+    if len(files) == 0:
+        raise ValueError(f"No se encontró el archivo: {filename}")
+
+    file = files[0]
+    downloaded = file.GetContentString()  # obtiene CSV como texto
+    df = pd.read_csv(pd.compat.StringIO(downloaded))
+
+    return df
+    
 st.title("📈 Producción de Leche – Altos de Medina")
 
 # URLs de Google Sheets
