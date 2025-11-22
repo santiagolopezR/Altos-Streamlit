@@ -143,4 +143,10 @@ grafica_aforo_por_finca(dfpasto, finca_elegida)
 
 #------ tabla
 
-pivot3 = 
+pivot3 = = dfpasto.pivot_table(
+    index='FECHA',"LOTE"
+    columns='FINCA',
+    values='promedio',
+    aggfunc='sum',
+    fill_value=0)
+st.dataframe(pivot3.sort_index(ascending=False), use_container_width=True)
