@@ -82,6 +82,14 @@ dfpasto = dfpasto[dfpasto["AFORO PLATOMETRO (Kg/m2)"] <= 4]
 # Ordenar por fecha
 dfpasto = dfpasto.sort_values("FECHA")
 
+#------
+
+
+dfpasto = dfpasto[~(((dfpasto['FINCA'] == "ARRIBA") & (dfpasto['LOTE'].isin(["1", "2"]))) | ((dfpasto['FINCA'] == "LA POSADA") & (dfpasto['LOTE'].isin(["ALTA"]))))]
+
+# 'dfpasto' ahora contiene el resultado de la "resta".
+
+
 # -------------------------------
 # GRAFICA GENERAL
 # -------------------------------
