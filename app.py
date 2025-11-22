@@ -86,10 +86,6 @@ sns.lineplot(data=df, x="MES_ANO", y="LECHE TANQUE DIA", hue="FINCA", ax=ax, err
 plt.xticks(rotation=45)
 st.pyplot(fig)
 
-#------- grafica ----
-st.subheader(" Promedio por finca")
-
-
 
 # -----------------------------------------------------
 # 5. INTERFAZ
