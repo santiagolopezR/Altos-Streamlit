@@ -148,6 +148,6 @@ pivot3 = dfpasto.pivot_table(
     index='FECHA',
     columns='FINCA',
     values='AFORO PLATOMETRO (Kg/m2)',
-    aggfunc='sum',
+    aggfunc='mean',
     fill_value=0)
 st.dataframe(pivot3.sort_index(ascending=False), use_container_width=True)
