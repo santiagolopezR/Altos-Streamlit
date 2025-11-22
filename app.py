@@ -153,6 +153,6 @@ pivot2 = df.pivot_table(
     columns='FINCA',
     values='promedio',
     aggfunc='sum',
-    fill_value=0
+    fill_value=0)
 st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
 
