@@ -3,18 +3,54 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-st.title("🌱 Gestión de Pastoreo – Altos de Medina")
+import base64
+import json
+from io import BytesIO
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 
-# -------------------------------
-# Cargar datos llamando funciones del app principal
-# -------------------------------
-@st.cache_data
-def load_dfpasto():
-    url_pastos = "https://docs.google.com/spreadsheets/d/1zEiTqZ-9WnpwcpjV_LFRF9IcwHbqM04t/export?format=csv&gid=392341065"
-    dfpasto = pd.read_csv(url_pastos)
-    return dfpasto
 
-dfpasto = load_dfpasto()
+# ================================
+# 1. Leer credenciales desde secrets
+# ================================
+raw = st.secrets["google"]["credentials_b64"]
+decoded_json = base64.b64decode(raw).decode("utf-8")
+creds_info = json.loads(decoded_json)
+
+creds = service_account.Credentials.from_service_account_info(
+    creds_info,
+    scopes=["https://www.googleapis.com/auth/drive.readonly"]
+)
+
+# Cliente Drive API
+service = build("drive", "v3", credentials=creds)
+
+# ID del archivo Excel en Drive
+FILE_ID = st.secrets["google"]["file_id"]
+
+
+# ================================
+# 2. Función para descargar el .xlsx
+# ================================
+def leer_excel_xlsx(file_id, sheet_name=0):
+    """Descarga un archivo .xlsx de Drive y carga una hoja específica."""
+    
+    request = service.files().get_media(fileId=file_id)
+    file_bytes = request.execute()
+
+    xls = pd.ExcelFile(BytesIO(file_bytes))
+    df = pd.read_excel(xls, sheet_name=sheet_name)
+
+    return df
+
+
+# ================================
+# 3. Leer tus hojas (por índice)
+# ================================
+
+df = leer_excel_xlsx(FILE_ID, sheet_name=0)         # PRODUCCIÓN
+dfpasto = leer_excel_xlsx(FILE_ID, sheet_name=5)    # PASTOS
+
 
 # -------------------------------
 # LIMPIEZA
