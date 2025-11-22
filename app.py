@@ -85,3 +85,67 @@ fig, ax = plt.subplots(figsize=(15, 5))
 sns.lineplot(data=df, x="MES_ANO", y="LECHE TANQUE DIA", hue="FINCA", ax=ax, errorbar=None)
 plt.xticks(rotation=45)
 st.pyplot(fig)
+
+#------- grafica ----
+st.subheader(" Promedio por finca")
+
+
+
+# -----------------------------------------------------
+# 5. INTERFAZ
+# -----------------------------------------------------
+
+st.title("📈 Producción de Leche – Altos de Medina")
+st.sidebar.success("Seleccione una página 🤌.")
+
+
+# -----------------------------------------------------
+# 7. GRÁFICA ÚLTIMO MES
+# -----------------------------------------------------
+
+st.subheader("📊 Producción de leche – Último Mes")
+df["MES"] = df["FECHA"].dt.to_period("M")
+
+ultimo_mes = df["MES"].max()
+df_ultimo_mes = df[df["MES"] == ultimo_mes]
+
+fig2, ax2 = plt.subplots(figsize=(10, 5))
+sns.lineplot(data=df_ultimo_mes, x="FECHA", y="LECHE TANQUE DIA", hue="FINCA", ax=ax2)
+plt.xticks(rotation=45)
+plt.title("Producción Último Mes")
+
+st.pyplot(fig2)
+
+
+# -----------------------------------------------------
+# 8. TABLA PIVOT
+# -----------------------------------------------------
+
+df["FECHA"] = df["FECHA"].dt.date
+pivot = df.pivot_table(
+    index='FECHA',
+    columns='FINCA',
+    values='LECHE TANQUE DIA',
+    aggfunc='sum',
+    fill_value=0
+)
+pivot["Suma Dia"] = pivot.sum(axis=1)
+
+st.subheader("📋 Producción por finca")
+st.dataframe(pivot.sort_index(ascending=False), use_container_width=True)
+
+
+# -----------------------------------------------------
+# 9. PROMEDIO POR VACA
+# -----------------------------------------------------
+
+df["promedio"] = df["LECHE TANQUE DIA"] / df["NUMERO VACAS ORDEÑO"]
+
+fig3, ax3 = plt.subplots(figsize=(10, 5))
+sns.barplot(data=df, x="MES", y="promedio", hue="FINCA", ax=ax3, errorbar=None)
+plt.xticks(rotation=50)
+plt.title("Promedio por Finca")
+
+st.pyplot(fig3)
+
+Esto se hizo con el fin de conectarse al archivo que se va a sobreescribir
