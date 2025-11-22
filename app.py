@@ -135,6 +135,9 @@ st.dataframe(pivot.sort_index(ascending=False), use_container_width=True)
 # 9. PROMEDIO POR VACA
 # -----------------------------------------------------
 
+
+
+st.subheader("Promedio por finca 🐄")
 df["promedio"] = df["LECHE TANQUE DIA"] / df["NUMERO VACAS ORDEÑO"]
 
 fig3, ax3 = plt.subplots(figsize=(10, 5))
@@ -143,3 +146,13 @@ plt.xticks(rotation=50)
 plt.title("Promedio por Finca")
 
 st.pyplot(fig3)
+
+#------ tabla promedio-----
+pivot2 = df.pivot_table(
+    index='FECHA',
+    columns='FINCA',
+    values='promedio',
+    aggfunc='sum',
+    fill_value=0
+st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
+
