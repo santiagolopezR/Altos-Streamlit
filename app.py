@@ -13,7 +13,14 @@ from googleapiclient.discovery import build
 # 1. CONFIGURACIÓN GOOGLE DRIVE API (USA TUS SECRETS)
 # -----------------------------------------------------
 
-creds_info = json.loads(st.secrets["google"]["credentials"])
+import base64
+import json
+
+# decodificar desde base64
+raw = st.secrets["google"]["credentials_b64"]
+decoded_json = base64.b64decode(raw).decode("utf-8")
+creds_info = json.loads(decoded_json)
+
 
 # IDs del archivo (si son el mismo, puedes usar uno solo)
 FILE_ID = st.secrets["google"]["file_id"]   # tu Google Sheet
