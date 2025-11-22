@@ -147,5 +147,3 @@ plt.xticks(rotation=50)
 plt.title("Promedio por Finca")
 
 st.pyplot(fig3)
-
-Esto se hizo con el fin de conectarse al archivo que se va a sobreescribir
