@@ -65,12 +65,12 @@ df["LECHE TANQUE DIA"] = pd.to_numeric(df["LECHE TANQUE DIA"], errors="coerce")
 df = df.dropna(subset=["LECHE TANQUE DIA"])
 
 
-#dfpasto["FINCA"] = dfpasto["FINCA"].astype(str).str.strip()
-#dfpasto = dfpasto[dfpasto["FINCA"] != "ABAJO"]
-#dfpasto["FECHA"] = pd.to_datetime(dfpasto["FECHA"], errors="coerce")
-#dfpasto = dfpasto.dropna(subset=["FECHA"])
-#dfpasto["LOTE"] = dfpasto["LOTE"].astype(str).str.strip()
-#dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
+dfpasto["FINCA"] = dfpasto["FINCA"].astype(str).str.strip()
+dfpasto = dfpasto[dfpasto["FINCA"] != "ABAJO"]
+dfpasto["FECHA"] = pd.to_datetime(dfpasto["FECHA"], errors="coerce")
+dfpasto = dfpasto.dropna(subset=["FECHA"])
+dfpasto["LOTE"] = dfpasto["LOTE"].astype(str).str.strip()
+dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 
 
 # ================================
