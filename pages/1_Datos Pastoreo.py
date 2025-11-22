@@ -147,7 +147,7 @@ grafica_aforo_por_finca(dfpasto, finca_elegida)
 pivot3 = dfpasto.pivot_table(
     index='FECHA',
     columns='FINCA',
-    values='promedio',
+    values='AFORO PLATOMETRO (Kg/m2)',
     aggfunc='sum',
     fill_value=0)
 st.dataframe(pivot3.sort_index(ascending=False), use_container_width=True)
