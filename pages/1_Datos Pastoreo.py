@@ -184,4 +184,4 @@ def grafica_consumo_por_finca(dfpasto, finca):
     st.pyplot(fig)
 
 
-grafica_consumo_por_finca(dfpasto, finca_elegida)
+grafica_consumo_por_finca(dfpasto, finca_elegida2)
