@@ -110,7 +110,7 @@ st.pyplot(fig)
 # -------------------------------
 # GRAFICA POR FINCA
 # -------------------------------
-st.subheader("📈 Aforo por Lote – Finca específica")
+st.subheader("📈 AFORO por Lote – Finca específica")
 
 finca_elegida = st.selectbox("Selecciona una finca", dfpasto["FINCA"].unique())
 
@@ -154,7 +154,7 @@ st.dataframe(pivot3.sort_index(ascending=False), use_container_width=True)
 
 
 # ------------------------------- Consumo por finca lote
-st.subheader("📈 Aforo por Lote – Finca específica")
+st.subheader("📈 CONSUMO KG/VACA/DIA por Lote – Finca específica")
 
 finca_elegida = st.selectbox("Selecciona una finca", dfpasto["FINCA"].unique())
 
@@ -184,4 +184,4 @@ def grafica_consumo_por_finca(dfpasto, finca):
     st.pyplot(fig)
 
 
-grafica_aforo_por_finca(dfpasto, finca_elegida)
+grafica_consumo_por_finca(dfpasto, finca_elegida)
