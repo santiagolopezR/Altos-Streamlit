@@ -205,3 +205,13 @@ def grafica_consumo_por_finca(dfpasto, finca):
 
 
 grafica_consumo_por_finca(dfpasto, finca_elegida2)
+
+#------ Tabla
+
+pivot3 = dfpasto.pivot_table(
+    index='FECHA',
+    columns='FINCA',
+    values='CONSUMO PASTO PLATOMETRO (Kg/vaca/día)',
+    aggfunc='mean',
+    fill_value=0)
+st.dataframe(pivot3.sort_index(ascending=False), use_container_width=True)
