@@ -151,3 +151,37 @@ pivot3 = dfpasto.pivot_table(
     aggfunc='mean',
     fill_value=0)
 st.dataframe(pivot3.sort_index(ascending=False), use_container_width=True)
+
+
+# ------------------------------- Consumo por finca lote
+st.subheader("📈 Aforo por Lote – Finca específica")
+
+finca_elegida = st.selectbox("Selecciona una finca", dfpasto["FINCA"].unique())
+
+
+def grafica_consumo_por_finca(dfpasto, finca):
+    data = dfpasto[dfpasto["FINCA"] == finca]
+
+    if data.empty:
+        st.warning("No hay datos para esta finca.")
+        return
+
+    fig, ax = plt.subplots(figsize=(15, 10))
+    sns.lineplot(
+        data=data,
+        x="MES_ANO",
+        y="CONSUMO PASTO PLATOMETRO (Kg/vaca/día)",
+        hue="LOTE",
+        marker="o",
+        errorbar=None,
+        ax=ax
+    )
+
+    ax.set_title(f"Consumo promedio mes – {finca}", fontsize=16)
+    plt.xticks(rotation=45)
+    ax.grid(True)
+
+    st.pyplot(fig)
+
+
+grafica_aforo_por_finca(dfpasto, finca_elegida)
