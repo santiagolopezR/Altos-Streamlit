@@ -86,9 +86,23 @@ dfpasto = dfpasto.sort_values("FECHA")
 dfpasto = dfpasto[~(((dfpasto['FINCA'] == "ARRIBA") & (dfpasto['LOTE'].isin(["1", "2"]))) | ((dfpasto['FINCA'] == "LA POSADA") & (dfpasto['LOTE'].isin(["ALTA"]))))]
 #fecha
 df["FECHA"] = df["FECHA"].dt.date
+
+## LIMPIAR COLUMNA CONSUMO (por si viene con comas, texto, etc.)
+dfpasto["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"] = (
+    dfpasto["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"]
+    .astype(str)
+    .str.replace(",", ".", regex=False)
+    .str.strip()
+)
+
+dfpasto["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"] = pd.to_numeric(
+    dfpasto["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"],
+    errors="coerce"
+)
+
 # -------------------------------
 # GRAFICA GENERAL
-# -------------------------------
+
 st.subheader("📊 Aforo Promedio por Mes – General")
 
 fig, ax = plt.subplots(figsize=(15, 10))
