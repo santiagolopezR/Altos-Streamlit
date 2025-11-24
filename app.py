@@ -82,7 +82,7 @@ st.subheader("📊 Producción de leche por día")
 df["MES_ANO"] = df["FECHA"].dt.to_period("M").astype(str)
 
 fig, ax = plt.subplots(figsize=(15, 5))
-sns.lineplot(data=df, x="MES_ANO", y="LECHE TANQUE DIA", hue="FINCA", ax=ax, errorbar=None)
+sns.lineplot(data=df, x="MES_ANO", y="LECHE TANQUE DIA", hue="FINCA", ax=ax, errorbar=None,marker="o")
 plt.xticks(rotation=45)
 st.pyplot(fig)
 
@@ -106,7 +106,7 @@ ultimo_mes = df["MES"].max()
 df_ultimo_mes = df[df["MES"] == ultimo_mes]
 
 fig2, ax2 = plt.subplots(figsize=(10, 5))
-sns.lineplot(data=df_ultimo_mes, x="FECHA", y="LECHE TANQUE DIA", hue="FINCA", ax=ax2)
+sns.lineplot(data=df_ultimo_mes, x="FECHA", y="LECHE TANQUE DIA", hue="FINCA", ax=ax2, marker="o",)
 plt.xticks(rotation=45)
 plt.title("Producción Último Mes")
 
