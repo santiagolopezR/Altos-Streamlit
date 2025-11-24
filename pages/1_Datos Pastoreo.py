@@ -226,6 +226,6 @@ st.dataframe(
 
 #--------- Grafica Abonos
 
-aforo_por_fertilizante = dfpasto.groupby(["FINCA","FERTILIZANTE"])["AFORO PLATOMETRO (Kg/m2)"].mean().reset_index()
+aforo_por_fertilizante = dfpasto.groupby(["FINCA","Fertilizacion"])["AFORO PLATOMETRO (Kg/m2)"].mean().reset_index()
 st.subheader("Promedio de Aforo por Fertilizante")
 st.dataframe(aforo_por_fertilizante)
