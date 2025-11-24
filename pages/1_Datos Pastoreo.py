@@ -99,6 +99,8 @@ dfpasto["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"] = pd.to_numeric(
     dfpasto["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"],
     errors="coerce"
 )
+# Fertilizntes
+dfpasto["Fertilizacion"].str.strip()
 
 # -------------------------------
 # GRAFICA GENERAL
