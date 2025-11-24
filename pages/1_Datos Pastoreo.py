@@ -263,4 +263,6 @@ aforo_fert = (
 
 st.subheader("📌 Aforo promedio por fertilizante")
 st.dataframe(aforo_fert, use_container_width=True)
+st.write(dfpasto["Fertilizacion"].unique())
+
 
