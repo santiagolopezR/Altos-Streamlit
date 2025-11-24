@@ -208,6 +208,8 @@ grafica_consumo_por_finca(dfpasto, finca_elegida2)
 
 #------ Tabla
 
+st.subheader("Consumo promedio por Finca")
+
 pivot4 = dfpasto.pivot_table(
     index='FECHA',
     columns=['FINCA', 'LOTE'],   # ← coma al final
