@@ -253,16 +253,14 @@ st.dataframe(
 
 
 #--------- Tabla Abonos
-tabla_finca_fert = dfpasto.pivot_table(
-    index="FINCA",
-    columns="Fertilizacion",
-    values="AFORO PLATOMETRO (Kg/m2)",
-    aggfunc="mean",
-    fill_value=0
-).sort_index()
-    
-st.subheader("📊 Aforo promedio por finca y fertilizante")
-st.dataframe(tabla_finca_fert, use_container_width=True)
+tabla_group = (
+    dfpasto.groupby(["FINCA", "Fertilizacion"], as_index=False)
+           .agg({"AFORO PLATOMETRO (Kg/m2)": "mean"})
+           .rename(columns={"AFORO PLATOMETRO (Kg/m2)": "Aforo_Promedio"})
+)
+
+st.subheader("📊 Aforo promedio por FINCA y FERTILIZACIÓN")
+st.dataframe(tabla_group, use_container_width=True)
 
 
 
