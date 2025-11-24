@@ -100,7 +100,13 @@ dfpasto["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"] = pd.to_numeric(
     errors="coerce"
 )
 # Fertilizntes
-dfpasto["Fertilizacion"].str.strip()
+dfpasto["Fertilizacion"] = (
+    dfpasto["Fertilizacion"]
+    .astype(str)
+    .str.strip()
+    .str.replace(r"\s+", " ", regex=True)  # reemplazar muchos espacios por uno
+)
+
 
 # -------------------------------
 # GRAFICA GENERAL
