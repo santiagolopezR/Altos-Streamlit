@@ -100,12 +100,36 @@ dfpasto["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"] = pd.to_numeric(
     errors="coerce"
 )
 # Fertilizntes
+import re
+
+# Renombrar por si acaso
+dfpasto["Fertilizacion"] = dfpasto["Fertilizacion"].astype(str)
+
+# 1️⃣ Normalizar espacios
 dfpasto["Fertilizacion"] = (
     dfpasto["Fertilizacion"]
-    .astype(str)
-    .str.strip()
-    .str.replace(r"\s+", " ", regex=True)  # reemplazar muchos espacios por uno
+    .str.replace(r"\s+", " ", regex=True)   # múltiples espacios → uno solo
+    .str.strip()                             # quitar espacios extremos
+    .str.upper()                             # todo mayúsculas (unificación)
 )
+
+# 2️⃣ Reemplazar comas por espacios
+dfpasto["Fertilizacion"] = dfpasto["Fertilizacion"].str.replace(",", " ")
+
+# 3️⃣ Eliminar dobles espacios generados por reemplazos
+dfpasto["Fertilizacion"] = dfpasto["Fertilizacion"].str.replace(r"\s+", " ", regex=True).str.strip()
+
+# 4️⃣ Quitar fertilizantes vacíos o demasiado cortos
+dfpasto = dfpasto.dropna(subset=["Fertilizacion"])
+
+# 5️⃣ Reemplazos automáticos de nombres duplicados
+dfpasto["Fertilizacion"] = dfpasto["Fertilizacion"].replace({
+    "NIRAX": "NITRAX",
+    "NITRAX ": "NITRAX",
+    "NIRAX ": "NITRAX",
+    "NITRAX TIMAC": "NITRAX TIMAC",
+    "34-5-4 +KLESERITA": "34-5-4 + KLESERITA",
+})
 
 
 # -------------------------------
