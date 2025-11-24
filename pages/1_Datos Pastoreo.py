@@ -256,8 +256,6 @@ st.dataframe(
 
 
 
-st.subheader("📌 Aforo promedio por fertilizante")
-
 st.write(dfpasto["Fertilizacion"].unique())
 
 
