@@ -252,10 +252,19 @@ st.dataframe(
 )
 
 
-#--------- Grafica Abonos
+#--------- Tabla Abonos
+tabla_finca_fert = dfpasto.pivot_table(
+    index="FINCA",
+    columns="Fertilizacion",
+    values="AFORO PLATOMETRO (Kg/m2)",
+    aggfunc="mean",
+    fill_value=0
+).sort_index()
+    
+st.subheader("📊 Aforo promedio por finca y fertilizante")
+st.dataframe(tabla_finca_fert, use_container_width=True)
 
 
 
-st.write(dfpasto["Fertilizacion"].unique())
 
 
