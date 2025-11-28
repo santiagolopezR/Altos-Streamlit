@@ -60,20 +60,16 @@ df.columns = df.columns.str.strip()
 df["FINCA"] = df["FINCA"].str.strip().str.upper()
 df = df[df["FINCA"] != "ABAJO"]
 
-# --- LIMPIEZA Y CONVERSIÓN SEGURA DE FECHAS ---
-# --- LIMPIEZA Y CONVERSIÓN SEGURA DE FECHA ---
-# Convertir todo a texto para evitar mezclas de tipos
+#------ fecha
+# Convertir la columna a string y limpiar espacios
 df["FECHA"] = df["FECHA"].astype(str).str.strip()
 
-# Reemplazar valores vacíos o raros por NaN
-df["FECHA"].replace(["", " ", "nan", "NaN", None], pd.NA, inplace=True)
+# Reemplazar valores vacíos o raros
+df["FECHA"] = df["FECHA"].replace(["", " ", "nan", "NaN", None], pd.NA)
 
-# Convertir a datetime
-df["FECHA"] = pd.to_datetime(
-    df["FECHA"],
-    errors="coerce",
-    dayfirst=True
-)
+# Convertir definitivamente a datetime
+df["FECHA"] = pd.to_datetime(df["FECHA"], errors="coerce", dayfirst=True)
+
 
 df["LECHE TANQUE DIA"] = pd.to_numeric(df["LECHE TANQUE DIA"], errors="coerce")
 df = df.dropna(subset=["LECHE TANQUE DIA"])
@@ -93,7 +89,7 @@ dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 st.title("📈 Producción de Leche – Altos de Medina")
 
 st.subheader("📊 Producción de leche por día")
-df["MES_ANO"] = df["FECHA"].dt.to_period("M").astype(str)
+
 
 fig, ax = plt.subplots(figsize=(15, 5))
 sns.lineplot(data=df, x="MES_ANO", y="LECHE TANQUE DIA", hue="FINCA", ax=ax, errorbar=None,marker="o")
