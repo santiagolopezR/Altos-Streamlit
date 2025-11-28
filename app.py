@@ -60,14 +60,14 @@ df.columns = df.columns.str.strip()
 df["FINCA"] = df["FINCA"].str.strip().str.upper()
 df = df[df["FINCA"] != "ABAJO"]
 
-# 1. Convertir a string para evitar errores de tipos mezclados
-df["FECHA"] = df["FECHA"].astype(str)
+# --- LIMPIEZA Y CONVERSIÓN SEGURA DE FECHAS ---
+df["FECHA"] = df["FECHA"].astype(str).str.strip()              # quita espacios
+df["FECHA"] = pd.to_datetime(                                  # convierte
+    df["FECHA"],
+    errors="coerce",
+    dayfirst=True
+)
 
-# 2. Convertir a fecha, ignorando errores
-df["FECHA"] = pd.to_datetime(df["FECHA"], errors="coerce", dayfirst=True)
-
-# 3. Ahora sí usar .dt.date
-df["FECHA"] = df["FECHA"].dt.date
 
 df["LECHE TANQUE DIA"] = pd.to_numeric(df["LECHE TANQUE DIA"], errors="coerce")
 df = df.dropna(subset=["LECHE TANQUE DIA"])
