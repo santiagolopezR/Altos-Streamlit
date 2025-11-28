@@ -61,13 +61,19 @@ df["FINCA"] = df["FINCA"].str.strip().str.upper()
 df = df[df["FINCA"] != "ABAJO"]
 
 # --- LIMPIEZA Y CONVERSIÓN SEGURA DE FECHAS ---
-df["FECHA"] = df["FECHA"].astype(str).str.strip()              # quita espacios
-df["FECHA"] = pd.to_datetime(                                  # convierte
+# --- LIMPIEZA Y CONVERSIÓN SEGURA DE FECHA ---
+# Convertir todo a texto para evitar mezclas de tipos
+df["FECHA"] = df["FECHA"].astype(str).str.strip()
+
+# Reemplazar valores vacíos o raros por NaN
+df["FECHA"].replace(["", " ", "nan", "NaN", None], pd.NA, inplace=True)
+
+# Convertir a datetime
+df["FECHA"] = pd.to_datetime(
     df["FECHA"],
     errors="coerce",
     dayfirst=True
 )
-
 
 df["LECHE TANQUE DIA"] = pd.to_numeric(df["LECHE TANQUE DIA"], errors="coerce")
 df = df.dropna(subset=["LECHE TANQUE DIA"])
