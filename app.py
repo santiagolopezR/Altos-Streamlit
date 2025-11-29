@@ -92,7 +92,7 @@ st.subheader("📊 Producción de leche por día")
 
 
 fig, ax = plt.subplots(figsize=(15, 5))
-sns.lineplot(data=df, x="MES_ANO", y="LECHE TANQUE DIA", hue="FINCA", ax=ax, errorbar=None,marker="o")
+sns.lineplot(data=df, x="MES", y="LECHE TANQUE DIA", hue="FINCA", ax=ax, errorbar=None,marker="o")
 plt.xticks(rotation=45)
 st.pyplot(fig)
 
