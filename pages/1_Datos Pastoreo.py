@@ -65,15 +65,15 @@ dfpasto["LOTE"] = dfpasto["LOTE"].astype(str).str.strip()
 dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 #------ fecha
 # Convertir la columna a string y limpiar espacios
-df["FECHA"] = df["FECHA"].astype(str).str.strip()
+dfpasto["FECHA"] = dfpasto["FECHA"].astype(str).str.strip()
 
 # Reemplazar valores vacíos o raros
-df["FECHA"] = df["FECHA"].replace(["", " ", "nan", "NaN", None], pd.NA)
+dfpasto["FECHA"] = dfpasto["FECHA"].replace(["", " ", "nan", "NaN", None], pd.NA)
 
 # Convertir definitivamente a datetime
-df["FECHA"] = pd.to_datetime(df["FECHA"], errors="coerce", dayfirst=True)
+dfpasto["FECHA"] = pd.to_datetime(dfpasto["FECHA"], errors="coerce", dayfirst=True)
 # --- Crear columna MES_AÑO ---
-df["MES_ANO"] = df["FECHA"].dt.to_period("M").astype(str)
+dfpasto["MES_ANO"] =dfpasto["FECHA"].dt.to_period("M").astype(str)
 
 dfpasto["AFORO PLATOMETRO (Kg/m2)"] = (
     dfpasto["AFORO PLATOMETRO (Kg/m2)"]
