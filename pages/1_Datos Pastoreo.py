@@ -265,7 +265,7 @@ st.dataframe(
 
 st.subheader("Aforo promedio por Finca")
 
-pivot5= df.pasto.pivot(
+pivot5= dfpasto.pivot(
     index= "FECHA",
     columns=["FINCA","LOTE"],
     values="AFORO PLATOMETRO (kg/m2)",
