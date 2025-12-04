@@ -94,7 +94,7 @@ dfpasto = dfpasto.sort_values("FECHA")
 #Quitar lotes en las fincas
 dfpasto = dfpasto[~(((dfpasto['FINCA'] == "ARRIBA") & (dfpasto['LOTE'].isin(["1", "2"]))) | ((dfpasto['FINCA'] == "LA POSADA") & (dfpasto['LOTE'].isin(["ALTA"]))))]
 #fecha
-df["FECHA"] = df["FECHA"].dt.date
+dfpasto["FECHA"] = dfpasto["FECHA"].dt.date
 
 ## LIMPIAR COLUMNA CONSUMO (por si viene con comas, texto, etc.)
 dfpasto["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"] = (
