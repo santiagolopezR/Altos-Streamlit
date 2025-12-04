@@ -256,10 +256,26 @@ pivot4 = dfpasto.pivot_table(
 )
 
 st.dataframe(
-    pivot3.sort_index(ascending=False),
+    pivot4.sort_index(ascending=False),
     use_container_width=True
 )
 
+
+#------- Tabla
+
+st.subheader("Aforo promedio por Finca")
+
+pivot5= df.pasto.pivot(
+    index= "FECHA",
+    columns=["FINCA","LOTE"],
+    values="AFORO PLATOMETRO (kg/m2)",
+    aggfunc="mean",
+    fill_value=0
+)
+st.dataframe(
+    pivot5.sort_index(ascending=False),
+    use_container_width=True
+)
 
 #--------- Tabla Abonos
 tabla_group = (
