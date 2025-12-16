@@ -88,7 +88,4 @@ plt.xticks(rotation=45)
 ax.grid(True)
 
 st.pyplot(fig)
-st.subheader("📊 Datos Unificados")
-st.dataframe(df_total.head(), use_container_width=True)
-st.write(df_total["FINCA"].value_counts())
 st.write(df_total.columns)
