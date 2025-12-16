@@ -66,15 +66,6 @@ df_total["FINCA"] = (df_total["FINCA"].astype(str).str.strip().str.upper())
 #------- dataframe promedio con selector
 finca_elegida= st.selectbox("Seleccione una finca",df_total["FINCA"].unique())
 
-promedioporfinca = (df_total.groupby(["Fecha", "FINCA"], as_index=False)["Pdcion"].mean())
-
-tablafinca= promedioporfinca[
-    promedioporfinca["FINCA"] == finca_elegida]
-st.subheader(f"Promedio de producción – {finca_elegida}")
-st.dataframe(tablafinca, use_container_width=True)
-df_total["Fecha"] = pd.to_datetime(df_total["Fecha"])
-
-
 #------ Grafico1 
 
 columnas_numericas = [
