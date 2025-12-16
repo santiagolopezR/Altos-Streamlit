@@ -53,7 +53,23 @@ df_pioneros = leer_excel_xlsx(FILE_ID_PIONEROS, sheet_name=0)
 # ================================
 df_arriba["FINCA"] = "ARRIBA"
 df_pioneros["FINCA"] = "PIONEROS"
+# Asegurar fecha
+df_total["Fecha"] = pd.to_datetime(df_total["Fecha"])
 
+# Crear periodo mensual
+df_total["MES"] = df_total["Fecha"].dt.to_period("M")
+# Filtrar por finca
+df_finca = df_total[df_total["FINCA"] == finca_elegida]
+
+# Mes actual y anterior
+mes_actual = df_finca["MES"].max()
+mes_anterior = mes_actual - 1
+
+# Producción por mes
+prod_actual = df_finca[df_finca["MES"] == mes_actual]["Pdcion"].sum()
+prod_anterior = df_finca[df_finca["MES"] == mes_anterior]["Pdcion"].sum()
+#---------columnas 
+col1, col2, col3 = st.columns(3)
 
 # ================================
 # Unir si lo necesitas
@@ -70,6 +86,20 @@ tablafinca= promedioporfinca[
     promedioporfinca["FINCA"] == elegirfinca]
 st.subheader(f"Promedio de producción – {elegirfinca}")
 st.dataframe(tablafinca, use_container_width=True)
+
+st.subheader(f"📈 KPI Producción – {finca_elegida}")
+
+col1, col2, col3 = st.columns(3)
+
+col1.metric(
+    label="Producción mes actual",
+    value=f"{prod_actual:,.0f} L"
+)
+
+col2.metric(
+    label="Producción mes anterior",
+    value=f"{prod_anterior:,.0f} L"
+)
 #------ Grafico1 
 
 
