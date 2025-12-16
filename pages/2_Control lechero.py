@@ -64,7 +64,7 @@ df_total["FINCA"] = (df_total["FINCA"].astype(str).str.strip().str.upper())
 #------- dataframe promedio con selector
 elegirfinca= st.selectbox("Seleccione una finca",df_total["FINCA"].unique())
 
-promedioporfinca= df_total.groupby(["Fecha","FINCA")["Pdcion"].mean()
+promedioporfinca= df_total.groupby(["Fecha","FINCA"])["Pdcion"].mean()
 
 def tablas_por_finca (df_total, finca):
     data= df_total[df_total["FINCA"]== finca]
