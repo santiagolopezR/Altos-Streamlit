@@ -77,6 +77,23 @@ col1, col2, col3 = st.columns(3)
 df_total = pd.concat([df_arriba, df_pioneros], ignore_index=True)
 #---------Liampiar Datos
 df_total["FINCA"] = (df_total["FINCA"].astype(str).str.strip().str.upper())
+# Asegurar fecha
+df_total["Fecha"] = pd.to_datetime(df_total["Fecha"])
+
+# Crear periodo mensual
+df_total["MES"] = df_total["Fecha"].dt.to_period("M")
+# Filtrar por finca
+df_finca = df_total[df_total["FINCA"] == finca_elegida]
+
+# Mes actual y anterior
+mes_actual = df_finca["MES"].max()
+mes_anterior = mes_actual - 1
+
+# Producción por mes
+prod_actual = df_finca[df_finca["MES"] == mes_actual]["Pdcion"].sum()
+prod_anterior = df_finca[df_finca["MES"] == mes_anterior]["Pdcion"].sum()
+#---------columnas 
+col1, col2, col3 = st.columns(3)
 #------- dataframe promedio con selector
 elegirfinca= st.selectbox("Seleccione una finca",df_total["FINCA"].unique())
 
