@@ -64,7 +64,7 @@ df_total["FINCA"] = (df_total["FINCA"].astype(str).str.strip().str.upper())
 #------ Grafico1 
 
 promedioporfinca= df_total.groupby(["Fecha","FINCA"])["Pdcion"].mean()
-st.write(
+st.write(promedioporfinca)
 fig, ax = plt.subplots(figsize=(15,10))
 sns.lineplot(data=df_total,x="Fecha",y="Pdcion",hue="FINCA", errorbar=None, marker="o")
 ax.set_title("Aforo promedio por mes", fontsize=16)
