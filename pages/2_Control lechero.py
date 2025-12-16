@@ -54,11 +54,13 @@ df_pioneros = leer_excel_xlsx(FILE_ID_PIONEROS, sheet_name=0)
 df_arriba["FINCA"] = "ARRIBA"
 df_pioneros["FINCA"] = "PIONEROS"
 
+
 # ================================
 # Unir si lo necesitas
 # ================================
 df_total = pd.concat([df_arriba, df_pioneros], ignore_index=True)
-
+#---------Liampiar Datos
+df_total["FINCA"] = (df_total["FINCA].astype(str).str.strip().str.upper())
 #------ Grafico1 
 
 promedioporfinca= df_total.groupby("Fecha")["Pdcion"].mean()
