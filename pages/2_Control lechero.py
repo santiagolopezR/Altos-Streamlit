@@ -66,16 +66,10 @@ elegirfinca= st.selectbox("Seleccione una finca",df_total["FINCA"].unique())
 
 promedioporfinca = (df_total.groupby(["Fecha", "FINCA"], as_index=False)["Pdcion"].mean())
 
-
-def tablas_por_finca (df_total,finca):
-    data= df_total[df_total["FINCA"]== finca]
-    if data.empty:
-        st.warning("No hay datos para esta finca.")
-        return
-        st.subheader(f"Datos {finca}")
-        st.dataframe(data,use_container_width=True)
-tablas_por_finca (df_total, elegirfinca)
-
+tablafinca= promedioporfinca[
+    promedioporfinca["FINCA"] == finca_elegida
+st.subheader(f"Promedio de producción – {finca_elegida}")
+st.dataframe(tabla_finca, use_container_width=True)
 #------ Grafico1 
 
 
