@@ -73,7 +73,7 @@ def tablas_por_finca (df_total, finca):
         return
     st.subheader(f"Datos {finca}")
     st.dataframe(promediofinca,use_container_width=True)
-tablas_por_finca (df_total)
+tablas_por_finca (promediofinca)
 
 #------ Grafico1 
 
