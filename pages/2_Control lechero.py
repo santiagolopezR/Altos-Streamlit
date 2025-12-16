@@ -62,6 +62,16 @@ df_total = pd.concat([df_arriba, df_pioneros], ignore_index=True)
 #---------Liampiar Datos
 df_total["FINCA"] = (df_total["FINCA"].astype(str).str.strip().str.upper())
 # Asegurar fecha
+
+#------- dataframe promedio con selector
+elegirfinca= st.selectbox("Seleccione una finca",df_total["FINCA"].unique())
+
+promedioporfinca = (df_total.groupby(["Fecha", "FINCA"], as_index=False)["Pdcion"].mean())
+
+tablafinca= promedioporfinca[
+    promedioporfinca["FINCA"] == elegirfinca]
+st.subheader(f"Promedio de producción – {elegirfinca}")
+st.dataframe(tablafinca, use_container_width=True)
 df_total["Fecha"] = pd.to_datetime(df_total["Fecha"])
 
 # Crear periodo mensual
@@ -78,16 +88,6 @@ prod_actual = df_finca[df_finca["MES"] == mes_actual]["Pdcion"].sum()
 prod_anterior = df_finca[df_finca["MES"] == mes_anterior]["Pdcion"].sum()
 #---------columnas 
 col1, col2, col3 = st.columns(3)
-#------- dataframe promedio con selector
-elegirfinca= st.selectbox("Seleccione una finca",df_total["FINCA"].unique())
-
-promedioporfinca = (df_total.groupby(["Fecha", "FINCA"], as_index=False)["Pdcion"].mean())
-
-tablafinca= promedioporfinca[
-    promedioporfinca["FINCA"] == elegirfinca]
-st.subheader(f"Promedio de producción – {elegirfinca}")
-st.dataframe(tablafinca, use_container_width=True)
-
 st.subheader(f"📈 KPI Producción – {finca_elegida}")
 
 col1, col2, col3 = st.columns(3)
