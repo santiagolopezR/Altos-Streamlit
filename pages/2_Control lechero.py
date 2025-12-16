@@ -185,4 +185,4 @@ st.subheader(f"📋 Resumen mensual – {finca_elegida}")
 
 st.dataframe(
     df_mes.sort_values("MES", ascending=False),
-    use_container_width=True
+    use_container_width=True)
