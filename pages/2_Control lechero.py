@@ -8,7 +8,7 @@ from io import BytesIO
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
-st.title("🌱 Gestión de Pastoreo – Arriba y Pioneros")
+st.title("🥛Control Lechero – Arriba y Pioneros")
 
 # ================================
 # Credenciales desde secrets
