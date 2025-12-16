@@ -69,7 +69,7 @@ promedioporfinca = (df_total.groupby(["Fecha", "FINCA"], as_index=False)["Pdcion
 tablafinca= promedioporfinca[
     promedioporfinca["FINCA"] == elegirfinca]
 st.subheader(f"Promedio de producción – {elegirfinca}")
-st.dataframe(tabla_finca, use_container_width=True)
+st.dataframe(tablafinca, use_container_width=True)
 #------ Grafico1 
 
 
