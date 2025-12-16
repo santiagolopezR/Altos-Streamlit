@@ -71,7 +71,7 @@ def tablas_por_finca (df_total, finca):
     if data.empty:
         st.warning("No hay datos para esta finca.")
         return
-    st.subheader(f"Datos {finca}"
+    st.subheader(f"Datos {finca}")
     st.dataframe(promediofinca,use_container_width=True)
 tablas_por_finca (df_total, finca)
 
