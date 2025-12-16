@@ -76,7 +76,7 @@ def tablas_por_finca (df_total):
         st.subheader(f"Datos {finca}")
         st.dataframe(data,use_container_width=True)
 tablas_por_finca (promedioporfinca)
-
+elegirfinca= st.selectbox("Seleccione una finca",finca)
 #------ Grafico1 
 
 
