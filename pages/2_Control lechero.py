@@ -57,14 +57,11 @@ df_pioneros["FINCA"] = "PIONEROS"
 # ================================
 df_total = pd.concat([df_arriba, df_pioneros], ignore_index=True)
 
-# ================================
-# Mostrar
-# ================================
-st.subheader("📄 Arriba")
-st.dataframe(df_arriba.head(), use_container_width=True)
+#------ Grafico1 
 
-st.subheader("📄 Pioneros")
-st.dataframe(df_pioneros.head(), use_container_width=True)
+promedioporfinca= df_total.group_by("Fecha")["Pdcion"].mean()
+fig, ax = plt.subplots(figsize=(15,10))
+sns.lineplot(data=promedioporfinca)
 
 st.subheader("📊 Datos Unificados")
 st.dataframe(df_total.head(), use_container_width=True)
