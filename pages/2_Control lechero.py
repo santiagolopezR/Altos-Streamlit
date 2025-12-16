@@ -63,7 +63,7 @@ df_total = pd.concat([df_arriba, df_pioneros], ignore_index=True)
 
 promedioporfinca= df_total.groupby("Fecha")["Pdcion"].mean()
 fig, ax = plt.subplots(figsize=(15,10))
-#sns.lineplot(data=promedioporfinca,x="Fecha",y="Pdcion",hue="FINCA")
+sns.lineplot(data=promedioporfinca,x="Fecha",y="Pdcion")
 ax.set_title("Aforo promedio por mes", fontsize=16)
 plt.xticks(rotation=45)
 ax.grid(True)
