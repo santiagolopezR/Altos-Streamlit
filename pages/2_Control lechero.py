@@ -74,42 +74,115 @@ st.subheader(f"Promedio de producción – {elegirfinca}")
 st.dataframe(tablafinca, use_container_width=True)
 df_total["Fecha"] = pd.to_datetime(df_total["Fecha"])
 
-# Crear periodo mensual
-df_total["MES"] = df_total["Fecha"].dt.to_period("M")
-# Filtrar por finca
-df_finca = df_total[df_total["FINCA"] == elegirfinca]
 
-# Mes actual y anterior
-mes_actual = df_finca["MES"].max()
-mes_anterior = mes_actual - 1
+#------ Grafico1 
 
-# Producción por mes
-prod_actual = df_finca[df_finca["MES"] == mes_actual]["Pdcion"].sum()
-prod_anterior = df_finca[df_finca["MES"] == mes_anterior]["Pdcion"].sum()
-#---------columnas 
-col1, col2, col3 = st.columns(3)
-st.subheader(f"📈 KPI Producción – {elegirfinca}")
+columnas_numericas = [
+    col for col in df_total.columns
+    if df_total[col].dtype in ["int64", "float64"]
+]
+
+columna_elegida = st.selectbox(
+    "Seleccione la variable a analizar",
+    columnas_numericas,
+    index=columnas_numericas.index("Pdcion") if "Pdcion" in columnas_numericas else 0
+)
+
+# ======================================
+# FILTRAR FINCA
+# ======================================
+
+df_finca = df_total[df_total["FINCA"] == finca_elegida].copy()
+
+# ======================================
+# KPI MES ACTUAL VS ANTERIOR
+# ======================================
+
+df_finca["MES"] = df_finca["Fecha"].dt.to_period("M")
+
+resumen_mes = (
+    df_finca.groupby("MES")[columna_elegida]
+    .mean()
+    .sort_index()
+)
+
+if len(resumen_mes) >= 2:
+    mes_actual = resumen_mes.iloc[-1]
+    mes_anterior = resumen_mes.iloc[-2]
+    delta = mes_actual - mes_anterior
+else:
+    mes_actual = resumen_mes.iloc[-1]
+    mes_anterior = None
+    delta = None
 
 col1, col2, col3 = st.columns(3)
 
 col1.metric(
-    label="Producción mes actual",
-    value=f"{prod_actual:,.0f} L"
+    "Mes actual",
+    round(mes_actual, 2)
 )
 
-col2.metric(
-    label="Producción mes anterior",
-    value=f"{prod_anterior:,.0f} L"
+if mes_anterior is not None:
+    col2.metric(
+        "Mes anterior",
+        round(mes_anterior, 2)
+    )
+    col3.metric(
+        "Variación",
+        round(delta, 2),
+        delta=round(delta, 2)
+    )
+else:
+    col2.metric("Mes anterior", "N/A")
+    col3.metric("Variación", "N/A")
+
+# ======================================
+# FUNCIÓN GRÁFICA DE BARRAS
+# ======================================
+
+def grafica_barras(df, x_col, y_col, titulo, hue_col=None):
+    fig, ax = plt.subplots(figsize=(10, 5))
+
+    sns.barplot(
+        data=df,
+        x=x_col,
+        y=y_col,
+        hue=hue_col,
+        errorbar=None,
+        ax=ax
+    )
+
+    ax.set_title(titulo)
+    ax.set_xlabel(x_col)
+    ax.set_ylabel(y_col)
+    ax.grid(axis="y")
+    plt.xticks(rotation=45)
+
+    st.pyplot(fig)
+
+# ======================================
+# GRÁFICA POR MES
+# ======================================
+
+df_mes = (
+    df_finca
+    .groupby("MES", as_index=False)[columna_elegida]
+    .mean()
 )
-#------ Grafico1 
 
+grafica_barras(
+    df=df_mes,
+    x_col="MES",
+    y_col=columna_elegida,
+    titulo=f"{columna_elegida} promedio mensual – {finca_elegida}"
+)
 
+# ======================================
+# TABLA RESUMEN
+# ======================================
 
-fig, ax = plt.subplots(figsize=(15,10))
-sns.lineplot(data=df_total,x="Fecha",y="Pdcion",hue="FINCA", errorbar=None, marker="o")
-ax.set_title("Aforo promedio por mes", fontsize=16)
-plt.xticks(rotation=45)
-ax.grid(True)
+st.subheader(f"📋 Resumen mensual – {finca_elegida}")
 
-st.pyplot(fig)
-st.write(df_total.columns)
+st.dataframe(
+    df_mes.sort_values("MES", ascending=False),
+    use_container_width=True
