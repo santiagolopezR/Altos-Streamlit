@@ -63,7 +63,7 @@ df_total = pd.concat([df_arriba, df_pioneros], ignore_index=True)
 df_total["FINCA"] = (df_total["FINCA"].astype(str).str.strip().str.upper())
 #------ Grafico1 
 
-promedioporfinca= df_total.groupby("Fecha","FINCA")["Pdcion"].mean()
+promedioporfinca= df_total.groupby(["Fecha","FINCA"])["Pdcion"].mean()
 st.write(
 fig, ax = plt.subplots(figsize=(15,10))
 sns.lineplot(data=df_total,x="Fecha",y="Pdcion",hue="FINCA", errorbar=None, marker="o")
