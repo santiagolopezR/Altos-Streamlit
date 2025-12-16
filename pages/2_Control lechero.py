@@ -60,7 +60,7 @@ df_pioneros["FINCA"] = "PIONEROS"
 # ================================
 df_total = pd.concat([df_arriba, df_pioneros], ignore_index=True)
 #---------Liampiar Datos
-df_total["FINCA"] = (df_total["FINCA].astype(str).str.strip().str.upper())
+df_total["FINCA"] = (df_total["FINCA"].astype(str).str.strip().str.upper())
 #------ Grafico1 
 
 promedioporfinca= df_total.groupby("Fecha")["Pdcion"].mean()
