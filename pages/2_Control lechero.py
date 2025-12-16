@@ -69,8 +69,4 @@ st.dataframe(df_pioneros.head(), use_container_width=True)
 st.subheader("📊 Datos Unificados")
 st.dataframe(df_total.head(), use_container_width=True)
 
-# 3. Leer tus hojas (por índice)
-# ================================
 
-arriba = leer_excel_xlsx(FILE_ID, sheet_name=0)         # PRODUCCIÓN
-pioneros = leer_excel_xlsx(FILE_ID, sheet_name=4)    # PASTOS
