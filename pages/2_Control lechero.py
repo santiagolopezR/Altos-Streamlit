@@ -1,4 +1,4 @@
-import streamlit as st
+girimport streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -77,7 +77,7 @@ df_total["Fecha"] = pd.to_datetime(df_total["Fecha"])
 # Crear periodo mensual
 df_total["MES"] = df_total["Fecha"].dt.to_period("M")
 # Filtrar por finca
-df_finca = df_total[df_total["FINCA"] == finca_elegida]
+df_finca = df_total[df_total["FINCA"] == elegirfinca]
 
 # Mes actual y anterior
 mes_actual = df_finca["MES"].max()
@@ -88,7 +88,7 @@ prod_actual = df_finca[df_finca["MES"] == mes_actual]["Pdcion"].sum()
 prod_anterior = df_finca[df_finca["MES"] == mes_anterior]["Pdcion"].sum()
 #---------columnas 
 col1, col2, col3 = st.columns(3)
-st.subheader(f"📈 KPI Producción – {finca_elegida}")
+st.subheader(f"📈 KPI Producción – {elegirfinca}")
 
 col1, col2, col3 = st.columns(3)
 
