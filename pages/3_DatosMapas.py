@@ -6,23 +6,24 @@ from streamlit_folium import st_folium
 
 st.title("Mapa de Potreros")
 
-# Ruta al shapefile
 BASE_DIR = Path(__file__).resolve().parents[1]
 shp_path = BASE_DIR / "data" / "shp" / "pionerosPotreros.shp"
 
-# Cargar shapefile
 gdf = gpd.read_file(shp_path)
 
-# 👀 Verificar CRS
-st.write("CRS original:", gdf.crs)
-
-# ⚠️ SOLO si el CRS es None, asigna uno (ejemplo Colombia)
-if gdf.crs is None:
-    gdf = gdf.set_crs(epsg=3116)  # MAGNA-SIRGAS (ajustamos si hace falta)
-
-# Convertir a WGS84
-gdf = gdf.to_crs(epsg=4326)
+st.write("CRS:", gdf.crs)
 
 # Centro del mapa
 lat = gdf.geometry.centroid.y.mean()
-lon = gdf.geometry.centroid.x.mean
+lon = gdf.geometry.centroid.x.mean()
+
+m = folium.Map(
+    location=[lat, lon],
+    zoom_start=15,
+    tiles="OpenStreetMap"
+)
+
+folium.GeoJson(gdf).add_to(m)
+
+# 👇 CLAVE: key obligatoria
+st_folium(m, width=900, height=550, key="mapa_potreros")
