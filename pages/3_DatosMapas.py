@@ -1,10 +1,16 @@
-from pathlib import Path
-import geopandas as gpd
 import streamlit as st
+import geopandas as gpd
 
-BASE_DIR = Path(__file__).resolve().parents[1]
-shp_path = BASE_DIR / "data" / "shp" / "pionerosPotreros.shp"
+st.title("Mapa de Potreros (simple)")
 
-st.write("Leyendo desde:", shp_path)
+gdf = gpd.read_file("data/shp/pionerosPotreros.shp")
 
-gdf = gpd.read_file(shp_path)
+# Asegurar CRS
+gdf = gdf.to_crs(epsg=4326)
+
+# Convertir polígonos a puntos
+gdf["lat"] = gdf.geometry.centroid.y
+gdf["lon"] = gdf.geometry.centroid.x
+
+# Mostrar mapa
+st.map(gdf[["lat", "lon"]])
