@@ -13,17 +13,14 @@ gdf = gpd.read_file(shp_path)
 
 st.write("CRS:", gdf.crs)
 
-# Centro del mapa
 lat = gdf.geometry.centroid.y.mean()
 lon = gdf.geometry.centroid.x.mean()
 
-m = folium.Map(
-    location=[lat, lon],
-    zoom_start=15,
-    tiles="OpenStreetMap"
-)
+m = folium.Map(location=[lat, lon], zoom_start=15)
 
-folium.GeoJson(gdf).add_to(m)
+# 🔑 CLAVE: usar geo_interface
+folium.GeoJson(gdf.__geo_interface__).add_to(m)
 
-# 👇 CLAVE: key obligatoria
+st_folium(m, width=900, height=550, key="mapa_potreros")
+obligatoria
 st_folium(m, width=900, height=550, key="mapa_potreros")
