@@ -1,11 +1,10 @@
-import streamlit as st
-import geopandas as gpd
 from pathlib import Path
-import folium
-from streamlit_folium import st_folium
-
 import geopandas as gpd
+import streamlit as st
 
-gdf = gpd.read_file("pionerosPotreros.shp")
-gdf.to_file("pionerosPotreros.geojson", driver="GeoJSON")
+BASE_DIR = Path(__file__).resolve().parents[1]
+shp_path = BASE_DIR / "data" / "shp" / "pionerosPotreros.shp"
 
+st.write("Leyendo desde:", shp_path)
+
+gdf = gpd.read_file(shp_path)
