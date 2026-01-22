@@ -6,5 +6,4 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 shp_path = BASE_DIR / "data" / "shp" / "pionerosPotreros.shp"
 
 gdf = gpd.read_file(shp_path)
-
-st.write(gdf.head())
+st.map(gdp)
