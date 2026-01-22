@@ -21,4 +21,3 @@ m = folium.Map(
 folium.GeoJson(gdf).add_to(m)
 
 st_folium(m, width=1200, height=600)
-.
