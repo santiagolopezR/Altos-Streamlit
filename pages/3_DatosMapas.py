@@ -6,25 +6,24 @@ from streamlit_folium import st_folium
 
 st.title("Mapa de Potreros")
 
-# Ruta al shapefile
 BASE_DIR = Path(__file__).resolve().parents[1]
 shp_path = BASE_DIR / "data" / "shp" / "pionerosPotreros.shp"
 
-# Cargar shapefile
 gdf = gpd.read_file(shp_path)
 
-# Pasar a WGS84 (obligatorio para mapas web)
+# 👉 ASIGNAR CRS ORIGINAL (CAMBIA EPSG SI ES NECESARIO)
+gdf = gdf.set_crs(epsg=3116)   # <-- prueba con 3116 o dime cuál usa
+
+# 👉 CONVERTIR A WGS84
 gdf = gdf.to_crs(epsg=4326)
 
 # Centro del mapa
 lat = gdf.geometry.centroid.y.mean()
 lon = gdf.geometry.centroid.x.mean()
 
-# Crear mapa
+# Mapa
 m = folium.Map(location=[lat, lon], zoom_start=15)
 
-# Agregar shapefile
 folium.GeoJson(gdf).add_to(m)
 
-# Mostrar en Streamlit
 st_folium(m, width=800, height=500)
