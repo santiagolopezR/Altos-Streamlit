@@ -3,29 +3,22 @@ import geopandas as gpd
 import folium
 from streamlit_folium import st_folium
 
-st.set_page_config(layout="wide")
-st.title("🌱 Mapa de Potreros – Pioneros")
+st.title("Mapa de Potreros")
 
-# === Cargar SHP ===
 gdf = gpd.read_file("data/shp/pionerosPotreros.shp")
 
-# === Asegurar CRS correcto ===
-if gdf.crs is None:
-    gdf.set_crs(epsg=4326, inplace=True)
-else:
-    gdf = gdf.to_crs(epsg=4326)
+# Asegurar CRS web
+gdf = gdf.to_crs(epsg=4326)
 
-# === Centro del mapa ===
+# Centro del mapa
 centro = gdf.geometry.unary_union.centroid
+
 m = folium.Map(
     location=[centro.y, centro.x],
-    zoom_start=15,
-    tiles="OpenStreetMap"
+    zoom_start=15
 )
 
-# === Agregar potreros ===
-folium.GeoJson(
-    gdf,
-    name="Potreros",
-    tooltip=folium.GeoJsonTooltip(
-        fields=gdf.columns.
+folium.GeoJson(gdf).add_to(m)
+
+st_folium(m, width=1200, height=600)
+.
