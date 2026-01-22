@@ -1,5 +1,6 @@
 streamlit
 pandas
+geopandas
 openpyxl
 google-auth
 gspread
