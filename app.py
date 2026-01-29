@@ -143,7 +143,7 @@ fig2.update_layout(
     xaxis_tickangle=-45
 )
 
-st.plotly_chart(fig2, use_container_width=True))
+st.plotly_chart(fig2, use_container_width=True)
 
 
 # -----------------------------------------------------
