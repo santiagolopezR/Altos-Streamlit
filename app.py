@@ -167,7 +167,6 @@ st.dataframe(pivot.sort_index(ascending=False), use_container_width=True)
 # -----------------------------------------------------
 # 9. PROMEDIO POR VACA
 # -----------------------------------------------------
-
 st.subheader("Promedio por finca 🐄")
 df["promedio"] = df["LECHE TANQUE DIA"] / df["NUMERO VACAS ORDEÑO"]
 
@@ -175,20 +174,27 @@ df_plot = df.copy()
 df_plot["MES"] = df_plot["MES"].astype(str)
 df_plot["promedio"] = df_plot["promedio"].astype(float)
 
+# Agrupar por MES y FINCA para obtener el promedio real
 df_agrupado = df_plot.groupby(["MES", "FINCA"])["promedio"].mean().reset_index()
 
-fig3 = px.area(df_agrupado, 
+fig3 = px.line(df_agrupado, 
                x="MES", 
                y="promedio", 
                color="FINCA",
+               markers=True,
+               line_dash="FINCA",
                title="Promedio de Producción por Finca")
+
+fig3.update_traces(marker=dict(size=10), line=dict(width=3))
 
 fig3.update_layout(
     height=500,
-    xaxis_tickangle=-90
+    xaxis_tickangle=-90,
+    xaxis_title="Mes",
+    yaxis_title="Litros por Vaca"
 )
 
-st.plotly_chart(fig3, use_container_width=True)
+st.plotly_chart(fig3, use_container_width=True)True)
 
 #------ tabla promedio -----
 st.subheader("📋 Tabla de promedios")
