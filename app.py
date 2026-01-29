@@ -8,7 +8,7 @@ import json
 from io import BytesIO
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-
+import plotly.express as px
 
 # ================================
 # 1. Leer credenciales desde secrets
@@ -92,11 +92,22 @@ st.title("📈 Producción de Leche – Altos de Medina")
 st.subheader("📊 Producción de leche por día")
 
 
-fig, ax = plt.subplots(figsize=(15, 5))
-sns.lineplot(data=df, x="MES_ANO", y="LECHE TANQUE DIA", hue="FINCA", ax=ax, errorbar=None,marker="o")
-plt.xticks(rotation=45)
-st.pyplot(fig)
+fig = px.line(df, 
+              x="MES_ANO", 
+              y="LECHE TANQUE DIA", 
+              color="FINCA",
+              markers=True,
+              title="Producción de Leche por Finca")
 
+fig.update_layout(
+    width=1500,
+    height=500,
+    xaxis_title="Mes/Año",
+    yaxis_title="Leche Tanque Día",
+    xaxis_tickangle=-45
+)
+
+st.plotly_chart(fig, use_container_width=True)
 
 # -----------------------------------------------------
 # 5. INTERFAZ
