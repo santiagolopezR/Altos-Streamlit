@@ -173,7 +173,6 @@ st.dataframe(pivot.sort_index(ascending=False), use_container_width=True)
 st.subheader("Promedio por finca 🐄")
 df["promedio"] = df["LECHE TANQUE DIA"] / df["NUMERO VACAS ORDEÑO"]
 
-# Preparar los datos
 df_plot = df.copy()
 df_plot["MES"] = df_plot["MES"].astype(str)
 df_plot["promedio"] = df_plot["promedio"].astype(float)
@@ -187,12 +186,14 @@ fig3 = px.bar(df_plot,
               title="Promedio de Producción por Finca")
 
 fig3.update_layout(
-    height=800,  # Altura generosa para muchos meses
+    height=800,
     xaxis_title="Promedio Leche Tanque Día",
     yaxis_title="Mes"
 )
 
 st.plotly_chart(fig3, use_container_width=True)
+
+
 #------ tabla promedio-----
 pivot2 = df.pivot_table(
     index='FECHA',
