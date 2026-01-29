@@ -217,6 +217,7 @@ st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
 st.subheader("Relacion Leche:Concentrado")
 
 df_plot5 = df_plot.copy()
+df_plot5= df_plt5
 df_plot5["relacionl:c"]= df_plot5["LECHE TANQUE DIA"] / df_plot5["KILOS CONCENTRADO DIA"]
 
 # ELIMINAR filas con valores mayores a 5 usando drop
@@ -235,6 +236,11 @@ fig4.update_traces(marker=dict(size=8), line=dict(width=2.5))
 fig4.update_layout(height=500, xaxis_tickangle=-90)
 
 st.plotly_chart(fig4, use_container_width=True)
+
+
+#-------------- vacas ordeño -------------------------------------------------------
+
+fig5= px.bar(df_plot5, x="MES", y="NUMERO VACAS ORDEÑO", color="FINCA)
+st.plotly_chart(fig4, use_container_width=True)
 st.write(df.columns)
-st.write(df_plot5["relacionl:c"].describe())
-st.write(df_plot5[df_plot5["relacionl:c"] > 5])
+
