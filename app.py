@@ -174,19 +174,18 @@ st.subheader("Promedio por finca 🐄")
 df["promedio"] = df["LECHE TANQUE DIA"] / df["NUMERO VACAS ORDEÑO"]
 
 fig3, ax3 = plt.subplots(figsize=(10, 5))
-# Primero pivotear los datos
-df_pivot = df.pivot(index="MES", columns="FINCA", values="promedio")
+fig3 = px.line(df, 
+               x="MES", 
+               y="promedio", 
+               color="FINCA",
+               markers=True,
+               line_dash="FINCA",
+               title="Promedio por Finca")
 
-fig3 = px.imshow(df_pivot,
-                 labels=dict(x="Finca", y="Mes", color="Promedio"),
-                 title="Promedio por Finca",
-                 text_auto=True,  # Muestra valores
-                 aspect="auto")
-
-fig3.update_layout(height=600)
+fig3.update_traces(marker=dict(size=10), line=dict(width=3))
+fig3.update_layout(height=500, xaxis_tickangle=-50)
 
 st.plotly_chart(fig3, use_container_width=True)
-
 #------ tabla promedio-----
 pivot2 = df.pivot_table(
     index='FECHA',
