@@ -175,18 +175,17 @@ df_plot = df.copy()
 df_plot["MES"] = df_plot["MES"].astype(str)
 df_plot["promedio"] = df_plot["promedio"].astype(float)
 
-fig3 = px.bar(df_plot, 
-              y="MES", 
-              x="promedio", 
-              color="FINCA",
-              orientation='h',
-              barmode='group',
-              title="Promedio de Producción por Finca")
+df_agrupado = df_plot.groupby(["MES", "FINCA"])["promedio"].mean().reset_index()
+
+fig3 = px.area(df_agrupado, 
+               x="MES", 
+               y="promedio", 
+               color="FINCA",
+               title="Promedio de Producción por Finca")
 
 fig3.update_layout(
-    height=800,
-    xaxis_title="Promedio Leche Tanque Día",
-    yaxis_title="Mes"
+    height=500,
+    xaxis_tickangle=-90
 )
 
 st.plotly_chart(fig3, use_container_width=True)
