@@ -178,11 +178,11 @@ df_plot = df.copy()
 df_plot["MES"] = df_plot["MES"].astype(str)
 df_plot["promedio"] = df_plot["promedio"].astype(float)
 
-# Agrupar por MES y FINCA para eliminar duplicados
-df_pivot = df_plot.groupby(["MES", "FINCA"])["promedio"].mean().reset_index()
+# Eliminar duplicados, quedándote con el primero (o el último)
+df_plot = df_plot.drop_duplicates(subset=["MES", "FINCA"], keep='first')
 
 # Ahora hacer el pivot
-df_pivot = df_pivot.pivot(index="MES", columns="FINCA", values="promedio")
+df_pivot = df_plot.pivot(index="MES", columns="FINCA", values="promedio")
 
 # Crear heatmap
 fig3 = px.imshow(df_pivot,
