@@ -173,7 +173,12 @@ st.dataframe(pivot.sort_index(ascending=False), use_container_width=True)
 st.subheader("Promedio por finca 🐄")
 df["promedio"] = df["LECHE TANQUE DIA"] / df["NUMERO VACAS ORDEÑO"]
 
-fig3 = px.bar(df, 
+# Antes de crear fig3, convierte los datos a tipos compatibles
+df_plot = df.copy()
+df_plot["MES"] = df_plot["MES"].astype(str)  # Convertir a string
+df_plot["promedio"] = df_plot["promedio"].astype(float)  # Asegurar que sea float
+
+fig3 = px.bar(df_plot,  # Usar df_plot en lugar de df
               x="MES", 
               y="promedio", 
               color="FINCA",
@@ -183,8 +188,8 @@ fig3 = px.bar(df,
 fig3.update_layout(
     height=500,
     xaxis_tickangle=-50,
-    bargap=0.2,  # Espacio entre grupos de barras
-    bargroupgap=0.1  # Espacio entre barras dentro del grupo
+    bargap=0.2,
+    bargroupgap=0.1
 )
 
 st.plotly_chart(fig3, use_container_width=True)
