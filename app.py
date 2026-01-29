@@ -92,22 +92,22 @@ st.title("📈 Producción de Leche – Altos de Medina")
 st.subheader("📊 Producción de leche por día")
 
 
-fig = px.line(df, 
+# Ordenar por fecha antes de graficar
+df_sorted = df.sort_values(['FINCA', 'MES_ANO'])
+
+fig = px.line(df_sorted, 
               x="MES_ANO", 
               y="LECHE TANQUE DIA", 
-              color="FINCA",
-              markers=True,
-              title="Producción de Leche por Finca")
+              color="FINCA")
 
-# Sin markers, solo líneas
-fig.update_traces(line=dict(width=2.5))
-fig.update_layout(
-    height=500,
-    xaxis_tickangle=-45
+fig.update_xaxes(
+    rangeslider_visible=True,
+    tickangle=-45
 )
 
-st.plotly_chart(fig, use_container_width=True)
+fig.update_layout(height=600)
 
+st.plotly_chart(fig, use_container_width=True)
 # -----------------------------------------------------
 # 5. INTERFAZ
 # -----------------------------------------------------
