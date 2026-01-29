@@ -175,19 +175,22 @@ df["promedio"] = df["LECHE TANQUE DIA"] / df["NUMERO VACAS ORDEÑO"]
 
 # Preparar los datos
 df_plot = df.copy()
-df_plot["MES"] = df_plot["MES"].astype(str)  # Convertir Period a string
+df_plot["MES"] = df_plot["MES"].astype(str)
 df_plot["promedio"] = df_plot["promedio"].astype(float)
 
-# Pivotear para crear la matriz del heatmap
-df_pivot = df_plot.pivot(index="MES", columns="FINCA", values="promedio")
+# Agrupar por MES y FINCA para eliminar duplicados
+df_pivot = df_plot.groupby(["MES", "FINCA"])["promedio"].mean().reset_index()
+
+# Ahora hacer el pivot
+df_pivot = df_pivot.pivot(index="MES", columns="FINCA", values="promedio")
 
 # Crear heatmap
 fig3 = px.imshow(df_pivot,
                  labels=dict(x="Finca", y="Mes", color="Promedio Leche"),
                  title="Promedio de Producción por Finca y Mes",
-                 text_auto='.0f',  # Muestra valores sin decimales
+                 text_auto='.0f',
                  aspect="auto",
-                 color_continuous_scale="YlOrRd")  # Escala de colores amarillo-naranja-rojo
+                 color_continuous_scale="YlOrRd")
 
 fig3.update_layout(
     height=600,
