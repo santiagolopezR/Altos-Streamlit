@@ -246,10 +246,17 @@ st.plotly_chart(fig4, use_container_width=True)
 
 #-------------- vacas ordeño -------------------------------------------------------
 
-fig5= px.bar(df_plot5, x="MES", y="NUMERO VACAS ORDEÑO", color="FINCA")
-fig5.update_traces(marker=dict(size=8), line=dict(width=2.5))
-fig5.update_layout(height=500, xaxis_tickangle=-90)
-fig5.update_xaxes(rangeslider_visible=True,tickangle=-45)
+fig5 = px.bar(df_plot5, 
+              x="MES", 
+              y="NUMERO VACAS ORDEÑO", 
+              color="FINCA")  # Faltaba la comilla de cierre
+
+fig5.update_layout(
+    height=500, 
+    xaxis_tickangle=-90,
+    barmode='group'  # Agregar esto para barras agrupadas
+)
+
 st.plotly_chart(fig5, use_container_width=True)
 st.write(df.columns)
 
