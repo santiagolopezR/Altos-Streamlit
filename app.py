@@ -194,7 +194,7 @@ fig3.update_layout(
     yaxis_title="Litros por Vaca"
 )
 
-st.plotly_chart((fig3, use_container_width=True)True)
+st.plotly_chart(fig3, use_container_width=True)
 
 #------ tabla promedio -----
 st.subheader("📋 Tabla de promedios")
