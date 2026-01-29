@@ -225,7 +225,7 @@ df_plot5 = df_plot5[df_plot5["relacionl:c"] <= 5]
 
 fig4 = px.line(df_plot5, 
                x="MES", 
-               y="RELACION LECHE CONCENTRADO",
+               y="relacionl:c",
                color="FINCA",
                markers=True,
                line_dash="FINCA",
