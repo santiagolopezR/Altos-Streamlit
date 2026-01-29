@@ -95,7 +95,7 @@ st.subheader("📊 Producción de leche por día")
 # Ordenar por fecha antes de graficar
 df_sorted = df.sort_values(['FINCA', 'MES_ANO'])
 
-fig = px.line(df_sorted, 
+fig = px.scatter(df_sorted, 
               x="MES_ANO", 
               y="LECHE TANQUE DIA", 
               color="FINCA")
