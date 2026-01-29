@@ -178,19 +178,16 @@ df_plot = df.copy()
 df_plot["MES"] = df_plot["MES"].astype(str)  # Convertir a string
 df_plot["promedio"] = df_plot["promedio"].astype(float)  # Asegurar que sea float
 
-fig3 = px.bar(df_plot,  # Usar df_plot en lugar de df
-              x="MES", 
-              y="promedio", 
-              color="FINCA",
-              barmode='group',
-              title="Promedio por Finca")
+# Primero pivotear los datos
+df_pivot = df_plot.pivot(index="MES", columns="FINCA", values="promedio")
 
-fig3.update_layout(
-    height=500,
-    xaxis_tickangle=-50,
-    bargap=0.2,
-    bargroupgap=0.1
-)
+fig3 = px.imshow(df_pivot,
+                 labels=dict(x="Finca", y="Mes", color="Promedio"),
+                 title="Promedio por Finca",
+                 text_auto=True,  # Muestra valores
+                 aspect="auto")
+
+fig3.update_layout(height=600)
 
 st.plotly_chart(fig3, use_container_width=True)
 #------ tabla promedio-----
