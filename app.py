@@ -217,11 +217,11 @@ st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
 st.subheader("Relacion Leche:Concentrado")
 
 df_plot5 = df_plot.copy()
-df_plot5["MES"] = df_plot5["MES"].astype(str)
+
 
 # ELIMINAR filas con valores mayores a 5 usando drop
-indices_eliminar = df_plot5[df_plot5["RELACION LECHE CONCENTRADO"] > 5].index
-df_plot5 = df_plot5.drop(indices_eliminar)
+df_plot5 = df_plot5[df_plot5["RELACION LECHE CONCENTRADO"] <= 5]
+
 
 fig4 = px.line(df_plot5, 
                x="MES", 
