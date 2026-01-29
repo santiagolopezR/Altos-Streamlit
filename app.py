@@ -178,27 +178,19 @@ df_plot = df.copy()
 df_plot["MES"] = df_plot["MES"].astype(str)
 df_plot["promedio"] = df_plot["promedio"].astype(float)
 
-# Eliminar duplicados, quedándote con el primero (o el último)
-df_plot = df_plot.drop_duplicates(subset=["MES", "FINCA"], keep='first')
-
-# Ahora hacer el pivot
-df_pivot = df_plot.pivot(index="MES", columns="FINCA", values="promedio")
-
-# Crear heatmap
-fig3 = px.imshow(df_pivot,
-                 labels=dict(x="Finca", y="Mes", color="Promedio Leche"),
-                 title="Promedio de Producción por Finca y Mes",
-                 text_auto='.0f',
-                 aspect="auto",
-                 color_continuous_scale="YlOrRd")
+fig3 = px.bar(df_plot, 
+              y="MES", 
+              x="promedio", 
+              color="FINCA",
+              orientation='h',
+              barmode='group',
+              title="Promedio de Producción por Finca")
 
 fig3.update_layout(
-    height=600,
-    xaxis_title="Finca",
+    height=800,  # Altura generosa para muchos meses
+    xaxis_title="Promedio Leche Tanque Día",
     yaxis_title="Mes"
 )
-
-fig3.update_xaxes(side="bottom")
 
 st.plotly_chart(fig3, use_container_width=True)
 #------ tabla promedio-----
