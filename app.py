@@ -220,7 +220,7 @@ df_plot5 = df_plot.copy()
 
 
 # ELIMINAR filas con valores mayores a 5 usando drop
-df_plot5 = df_plot5[df_plot5["RELACION LECHE CONCENTRADO"] <= 5]
+df_plot5 = df_plot5[df_plot5["RELACION LECHE CONCENTRADO"] <= "5"]
 
 
 fig4 = px.line(df_plot5, 
