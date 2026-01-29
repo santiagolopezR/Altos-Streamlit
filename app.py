@@ -99,11 +99,10 @@ fig = px.line(df,
               markers=True,
               title="Producción de Leche por Finca")
 
+# Sin markers, solo líneas
+fig.update_traces(line=dict(width=2.5))
 fig.update_layout(
-    width=1500,
     height=500,
-    xaxis_title="Mes/Año",
-    yaxis_title="Leche Tanque Día",
     xaxis_tickangle=-45
 )
 
