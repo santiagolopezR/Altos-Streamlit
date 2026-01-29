@@ -214,14 +214,16 @@ pivot2 = df_tabla2.pivot_table(
 st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
 
 
-#----------- Grafico concentrado y relacion leche
 st.subheader("Relacion Leche:Concentrado")
-df_plot5 = df_plot[df_plot["RELACION LECHE CONCENTRADO"] <= 5]
 
-#Agrupar por mes y finca
-df_agrupado = df_plot5.groupby(["MES", "FINCA"])["RELACION LECHE CONCENTRADO"].mean().reset_index()
+df_plot5 = df_plot.copy()
+df_plot5["MES"] = df_plot5["MES"].astype(str)
 
-fig4 = px.line(df_agrupado, 
+# ELIMINAR filas con valores mayores a 5 usando drop
+indices_eliminar = df_plot5[df_plot5["RELACION LECHE CONCENTRADO"] > 5].index
+df_plot5 = df_plot5.drop(indices_eliminar)
+
+fig4 = px.line(df_plot5, 
                x="MES", 
                y="RELACION LECHE CONCENTRADO",
                color="FINCA",
