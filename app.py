@@ -194,12 +194,15 @@ fig3.update_layout(
 st.plotly_chart(fig3, use_container_width=True)
 
 
-#------ tabla promedio-----
-pivot2 = df.pivot_table(
+#------ tabla promedio (ARREGLADO) -----
+# Eliminar duplicados antes del pivot_table
+df_tabla = df.drop_duplicates(subset=['FECHA', 'FINCA'], keep='first')
+
+pivot2 = df_tabla.pivot_table(
     index='FECHA',
     columns='FINCA',
     values='promedio',
-    aggfunc='sum',
+    aggfunc='mean',  # Cambié sum por mean para promedios
     fill_value=0)
+
 st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
-st.write(df["MES"].dtype)
