@@ -173,21 +173,29 @@ st.dataframe(pivot.sort_index(ascending=False), use_container_width=True)
 st.subheader("Promedio por finca 🐄")
 df["promedio"] = df["LECHE TANQUE DIA"] / df["NUMERO VACAS ORDEÑO"]
 
-# Antes de crear fig3, convierte los datos a tipos compatibles
+# Preparar los datos
 df_plot = df.copy()
-df_plot["MES"] = df_plot["MES"].astype(str)  # Convertir a string
-df_plot["promedio"] = df_plot["promedio"].astype(float)  # Asegurar que sea float
+df_plot["MES"] = df_plot["MES"].astype(str)  # Convertir Period a string
+df_plot["promedio"] = df_plot["promedio"].astype(float)
 
-# Primero pivotear los datos
+# Pivotear para crear la matriz del heatmap
 df_pivot = df_plot.pivot(index="MES", columns="FINCA", values="promedio")
 
+# Crear heatmap
 fig3 = px.imshow(df_pivot,
-                 labels=dict(x="Finca", y="Mes", color="Promedio"),
-                 title="Promedio por Finca",
-                 text_auto=True,  # Muestra valores
-                 aspect="auto")
+                 labels=dict(x="Finca", y="Mes", color="Promedio Leche"),
+                 title="Promedio de Producción por Finca y Mes",
+                 text_auto='.0f',  # Muestra valores sin decimales
+                 aspect="auto",
+                 color_continuous_scale="YlOrRd")  # Escala de colores amarillo-naranja-rojo
 
-fig3.update_layout(height=600)
+fig3.update_layout(
+    height=600,
+    xaxis_title="Finca",
+    yaxis_title="Mes"
+)
+
+fig3.update_xaxes(side="bottom")
 
 st.plotly_chart(fig3, use_container_width=True)
 #------ tabla promedio-----
