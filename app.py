@@ -126,12 +126,24 @@ df["MES"] = df["FECHA"].dt.to_period("M")
 ultimo_mes = df["MES"].max()
 df_ultimo_mes = df[df["MES"] == ultimo_mes]
 
-fig2, ax2 = plt.subplots(figsize=(10, 5))
-sns.lineplot(data=df_ultimo_mes, x="FECHA", y="LECHE TANQUE DIA", hue="FINCA", ax=ax2, marker="o",)
-plt.xticks(rotation=45)
-plt.title("Producción Último Mes")
+fig2 = px.line(df_ultimo_mes, 
+               x="FECHA", 
+               y="LECHE TANQUE DIA", 
+               color="FINCA",
+               markers=True,
+               title="Producción Último Mes")
 
-st.pyplot(fig2)
+fig2.update_traces(marker=dict(size=8), line=dict(width=2.5))
+
+fig2.update_layout(
+    width=1000,
+    height=500,
+    xaxis_title="Fecha",
+    yaxis_title="Leche Tanque Día",
+    xaxis_tickangle=-45
+)
+
+st.plotly_chart(fig2, use_container_width=True))
 
 
 # -----------------------------------------------------
