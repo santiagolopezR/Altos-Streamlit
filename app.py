@@ -186,7 +186,10 @@ fig3 = px.line(df_agrupado,
                title="Promedio de Producción por Finca")
 
 fig3.update_traces(marker=dict(size=10), line=dict(width=3))
-
+fig3.update_xaxes(
+    rangeslider_visible=True,
+    tickangle=-45
+)
 fig3.update_layout(
     height=500,
     xaxis_tickangle=-90,
@@ -234,13 +237,16 @@ fig4 = px.line(df_plot5,
 
 fig4.update_traces(marker=dict(size=8), line=dict(width=2.5))
 fig4.update_layout(height=500, xaxis_tickangle=-90)
-
+fig4.update_xaxes(
+    rangeslider_visible=True,
+    tickangle=-45
+)
 st.plotly_chart(fig4, use_container_width=True)
 
 
 #-------------- vacas ordeño -------------------------------------------------------
 
 fig5= px.bar(df_plot5, x="MES", y="NUMERO VACAS ORDEÑO", color="FINCA)
-st.plotly_chart(fig4, use_container_width=True)
+st.plotly_chart(fig5, use_container_width=True)
 st.write(df.columns)
 
