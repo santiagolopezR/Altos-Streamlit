@@ -220,7 +220,7 @@ st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
 st.subheader("Relacion Leche:Concentrado")
 
 df_plot5 = df_plot.copy()
-df_plot5= df_plt5
+
 df_plot5["relacionl:c"]= df_plot5["LECHE TANQUE DIA"] / df_plot5["KILOS CONCENTRADO DIA"]
 
 # ELIMINAR filas con valores mayores a 5 usando drop
