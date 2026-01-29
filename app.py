@@ -98,7 +98,7 @@ df_sorted = df.sort_values(['FINCA', 'MES_ANO'])
 fig = px.line(df_sorted, 
               x="MES_ANO", 
               y="LECHE TANQUE DIA", 
-              color="FINCA", line_dash="FINCA",facet_row="FINCA")
+              color="FINCA", line_dash="FINCA")
 
 fig.update_xaxes(
     rangeslider_visible=True,
