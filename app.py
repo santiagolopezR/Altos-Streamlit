@@ -236,3 +236,5 @@ fig4.update_layout(height=500, xaxis_tickangle=-90)
 
 st.plotly_chart(fig4, use_container_width=True)
 st.write(df.columns)
+st.write(df_plot5["relacionl:c"].describe())
+st.write(df_plot5[df_plot5["relacionl:c"] > 5])
