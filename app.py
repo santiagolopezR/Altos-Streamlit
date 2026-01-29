@@ -69,8 +69,10 @@ df["FECHA"] = df["FECHA"].replace(["", " ", "nan", "NaN", None], pd.NA)
 
 # Convertir definitivamente a datetime
 df["FECHA"] = pd.to_datetime(df["FECHA"], errors="coerce", dayfirst=True)
-# --- Crear columna MES_AÑO ---
+
+# --- Crear columnas de tiempo ---
 df["MES_ANO"] = df["FECHA"].dt.to_period("M").astype(str)
+df["MES"] = df["FECHA"].dt.to_period("M")
 
 df["LECHE TANQUE DIA"] = pd.to_numeric(df["LECHE TANQUE DIA"], errors="coerce")
 df = df.dropna(subset=["LECHE TANQUE DIA"])
@@ -85,12 +87,15 @@ dfpasto = dfpasto[~dfpasto["LOTE"].isin(["nan", "12", "10"])]
 
 
 # ================================
-# 5. GRÁFICAS / INTERFAZ
+# 5. INTERFAZ
 # ================================
 st.title("📈 Producción de Leche – Altos de Medina")
+st.sidebar.success("Seleccione una página 🤌.")
 
+# -----------------------------------------------------
+# 6. GRÁFICA HISTÓRICA
+# -----------------------------------------------------
 st.subheader("📊 Producción de leche por día")
-
 
 # Ordenar por fecha antes de graficar
 df_sorted = df.sort_values(['FINCA', 'MES_ANO'])
@@ -98,7 +103,8 @@ df_sorted = df.sort_values(['FINCA', 'MES_ANO'])
 fig = px.line(df_sorted, 
               x="MES_ANO", 
               y="LECHE TANQUE DIA", 
-              color="FINCA", line_dash="FINCA")
+              color="FINCA", 
+              line_dash="FINCA")
 
 fig.update_xaxes(
     rangeslider_visible=True,
@@ -108,20 +114,12 @@ fig.update_xaxes(
 fig.update_layout(height=600)
 
 st.plotly_chart(fig, use_container_width=True)
-# -----------------------------------------------------
-# 5. INTERFAZ
-# -----------------------------------------------------
-
-st.title("📈 Producción de Leche – Altos de Medina")
-st.sidebar.success("Seleccione una página 🤌.")
-
 
 # -----------------------------------------------------
 # 7. GRÁFICA ÚLTIMO MES
 # -----------------------------------------------------
 
 st.subheader("📊 Producción de leche – Último Mes")
-df["MES"] = df["FECHA"].dt.to_period("M")
 
 ultimo_mes = df["MES"].max()
 df_ultimo_mes = df[df["MES"] == ultimo_mes]
@@ -136,7 +134,6 @@ fig2 = px.line(df_ultimo_mes,
 fig2.update_traces(marker=dict(size=8), line=dict(width=2.5))
 
 fig2.update_layout(
-    width=1000,
     height=500,
     xaxis_title="Fecha",
     yaxis_title="Leche Tanque Día",
@@ -149,9 +146,13 @@ st.plotly_chart(fig2, use_container_width=True)
 # -----------------------------------------------------
 # 8. TABLA PIVOT
 # -----------------------------------------------------
+st.subheader("📋 Producción por finca")
 
-df["FECHA"] = df["FECHA"].dt.date
-pivot = df.pivot_table(
+# Crear copia para la tabla sin modificar el df original
+df_tabla1 = df.copy()
+df_tabla1["FECHA"] = df_tabla1["FECHA"].dt.date
+
+pivot = df_tabla1.pivot_table(
     index='FECHA',
     columns='FINCA',
     values='LECHE TANQUE DIA',
@@ -160,15 +161,12 @@ pivot = df.pivot_table(
 )
 pivot["Suma Dia"] = pivot.sum(axis=1)
 
-st.subheader("📋 Producción por finca")
 st.dataframe(pivot.sort_index(ascending=False), use_container_width=True)
 
 
 # -----------------------------------------------------
 # 9. PROMEDIO POR VACA
 # -----------------------------------------------------
-
-
 
 st.subheader("Promedio por finca 🐄")
 df["promedio"] = df["LECHE TANQUE DIA"] / df["NUMERO VACAS ORDEÑO"]
@@ -193,16 +191,19 @@ fig3.update_layout(
 
 st.plotly_chart(fig3, use_container_width=True)
 
+#------ tabla promedio -----
+st.subheader("📋 Tabla de promedios")
 
-#------ tabla promedio (ARREGLADO) -----
-# Eliminar duplicados antes del pivot_table
-df_tabla = df.drop_duplicates(subset=['FECHA', 'FINCA'], keep='first')
+df_tabla2 = df.copy()
+df_tabla2["FECHA"] = df_tabla2["FECHA"].dt.date
+df_tabla2 = df_tabla2.drop_duplicates(subset=['FECHA', 'FINCA'], keep='first')
 
-pivot2 = df_tabla.pivot_table(
+pivot2 = df_tabla2.pivot_table(
     index='FECHA',
     columns='FINCA',
     values='promedio',
-    aggfunc='mean',  # Cambié sum por mean para promedios
-    fill_value=0)
+    aggfunc='mean',
+    fill_value=0
+)
 
 st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
