@@ -216,7 +216,7 @@ st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
 
 #----------- Grafico concentrado y relacion leche
 st.subheader("Relacion Leche:Concentrado")
-fig4= pix.line(df, x="MES", y="RELACION LECHE CONCENTRADO",color="FINCA",
+fig4= px.line(df, x="MES", y="RELACION LECHE CONCENTRADO",color="FINCA",
                markers=True,
                line_dash="FINCA",
                title="Promedio de Relacion Leche:Concentrado por Finca")
