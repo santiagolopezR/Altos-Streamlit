@@ -194,4 +194,4 @@ pivot2 = df.pivot_table(
     aggfunc='sum',
     fill_value=0)
 st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
-
+st.write(df["MES"].dtype)
