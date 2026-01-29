@@ -216,4 +216,4 @@ st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
 
 #----------- Grafico concentrado y relacion leche
 
-st.write(df.info())
+st.write(df.columns)
