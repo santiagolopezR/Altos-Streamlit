@@ -294,7 +294,19 @@ st.dataframe(
     pivot5.sort_index(ascending=False),
     use_container_width=True
 )
+#-------------------- Tabla aforos total
 
+pivot6= dfpasto.pivot_table(
+    index= "FECHA",
+    columns=["FINCA","LOTE"],
+    values="AFORO PLATOMETRO (Kg/m2)","CONSUMO PASTO PLATOMETRO (Kg/vaca/día)","DIAS ROTACION",
+    "DIAS OCUPACION",
+    aggfunc="mean",
+    fill_value=0
+)
+st.dataframe(
+    pivot6.sort_index(ascending=False),
+    use_container_width=True
 #--------- Tabla Abonos
 tabla_group = (
     dfpasto.groupby(["FINCA", "Fertilizacion"], as_index=False)
