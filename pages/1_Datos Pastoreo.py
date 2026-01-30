@@ -295,7 +295,7 @@ st.dataframe(
     use_container_width=True
 )
 #-------------------- Tabla aforos total
-
+dfpasto["FECHA"] = dfpasto["FECHA"].dt.date
 pivot6= dfpasto.pivot_table(
     index= "FECHA",
     columns=["FINCA","LOTE"],
