@@ -160,6 +160,7 @@ fig.update_traces(marker=dict(size=8), line=dict(width=2.5))
 
 fig.update_layout(
     height=600,
+    width=1500,
     xaxis_tickangle=-45,
     xaxis_title="Mes/Año",
     yaxis_title="Aforo Platómetro (Kg/m²)",
