@@ -8,7 +8,7 @@ import json
 from io import BytesIO
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-import plotly as px
+import plotly.express as px
 
 # ================================
 # 1. Leer credenciales desde secrets
