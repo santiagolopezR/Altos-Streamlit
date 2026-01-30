@@ -295,12 +295,11 @@ st.dataframe(
     use_container_width=True
 )
 #-------------------- Tabla aforos total
-dfpasto["FECHA"] = dfpasto["FECHA"].dt.date
+
 pivot6= dfpasto.pivot_table(
     index= "FECHA",
     columns=["FINCA","LOTE"],
-    values=["AFORO PLATOMETRO (Kg/m2)","CONSUMO PASTO PLATOMETRO (Kg/vaca/día)",
-    "DIAS OCUPACION"],
+    values=["AFORO PLATOMETRO (Kg/m2)","CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"],
     aggfunc="mean",
     fill_value=0
 )
@@ -316,7 +315,7 @@ tabla_group = (
 
 st.subheader("📊 Aforo promedio por FINCA y FERTILIZACIÓN")
 st.dataframe(tabla_group, use_container_width=True)
-
+st.write(dfpasto.columns)
 
 
 
