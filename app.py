@@ -245,8 +245,8 @@ st.plotly_chart(fig4, use_container_width=True)
 
 
 #-------------- vacas ordeño -------------------------------------------------------
-
-fig5 = px.bar(df_plot5, 
+vacas= df_plot5.groupby(["MES","FINCA"])["NUMERO VACAS ORDEÑO"].mean().rest_index()
+fig5 = px.bar(vacas, 
               x="MES", 
               y="NUMERO VACAS ORDEÑO", 
               color="FINCA")  # Faltaba la comilla de cierre
