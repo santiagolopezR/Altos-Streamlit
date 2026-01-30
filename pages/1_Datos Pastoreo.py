@@ -151,7 +151,7 @@ dfpasto_plot = dfpasto_plot.sort_values(['FINCA', 'MES_ANO'])
 dfpasto_agrupado = dfpasto_plot.groupby(["MES_ANO", "FINCA"])["AFORO PLATOMETRO (Kg/m2)"].mean().reset_index()
 
 # Ordenar
-dfpasto_agrupado = dfpasto_agrupado.sort_values(['FINCA', 'MES_ANO']
+dfpasto_agrupado = dfpasto_agrupado.sort_values(['FINCA', 'MES_ANO'])
 fig = px.line(dfpasto_agrupado,
               x="MES_ANO",
               y="AFORO PLATOMETRO (Kg/m2)",
