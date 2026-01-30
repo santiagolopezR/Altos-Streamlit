@@ -295,7 +295,12 @@ st.dataframe(
     use_container_width=True
 )
 #-------------------- Tabla aforos total
+st.subheader("Datos Aforos Completos")
 
+st.dataframe(
+    dfpasto.sort_values("FECHA", ascending=False),
+    use_container_width=True
+)
 #--------- Tabla Abonos
 tabla_group = (
     dfpasto.groupby(["FINCA", "Fertilizacion"], as_index=False)
