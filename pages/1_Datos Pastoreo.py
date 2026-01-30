@@ -295,11 +295,11 @@ st.dataframe(
     use_container_width=True
 )
 #-------------------- Tabla aforos total
-
+st.subheader("Datos Aforos Completos")
 pivot6= dfpasto.pivot_table(
     index= "FECHA",
     columns=["FINCA"],
-    values=["LOTE","POTRERO""AFORO PLATOMETRO (Kg/m2)","CONSUMO PASTO PLATOMETRO (Kg/vaca/día)","NUMERO VACAS LOTE","DIAS OCUPACION","DIAS ROTACION","Fertilizacion","FUMIGACION"],
+    values=["LOTE","POTRERO""AFORO PLATOMETRO (Kg/m2)","CONSUMO PASTO PLATOMETRO (Kg/vaca/día)","NUMERO VACAS LOTE","DIAS OCUPACIÓN","DIAS ROTACION","Fertilizacion","FUMIGACION"],
     aggfunc="mean",
     fill_value=0
 )
