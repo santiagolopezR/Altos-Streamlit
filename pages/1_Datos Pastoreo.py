@@ -8,7 +8,7 @@ import json
 from io import BytesIO
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-
+import plotly as px
 
 # ================================
 # 1. Leer credenciales desde secrets
@@ -144,7 +144,6 @@ st.subheader("📊 Aforo Promedio por Mes – General")
 
 # Preparar datos
 dfpasto_plot = dfpasto.copy()
-dfpasto_plot["MES_ANO"] = dfpasto_plot["MES_ANO"].astype(str) if dfpasto_plot["MES_ANO"].dtype == 'period[M]' else dfpasto_plot["MES_ANO"]
 
 # Ordenar por fecha
 dfpasto_plot = dfpasto_plot.sort_values(['FINCA', 'MES_ANO'])
