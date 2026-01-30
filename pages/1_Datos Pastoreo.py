@@ -142,21 +142,35 @@ dfpasto = dfpasto[dfpasto["Fertilizacion"].str.strip() != ""]
 
 st.subheader("📊 Aforo Promedio por Mes – General")
 
-fig, ax = plt.subplots(figsize=(15, 10))
-sns.lineplot(
-    data=dfpasto,
-    x="MES_ANO",
-    y="AFORO PLATOMETRO (Kg/m2)",
-    hue="FINCA",
-    marker="o",
-    errorbar=None,
-    ax=ax
-)
-ax.set_title("Aforo promedio por mes", fontsize=16)
-plt.xticks(rotation=45)
-ax.grid(True)
+# Preparar datos
+dfpasto_plot = dfpasto.copy()
+dfpasto_plot["MES_ANO"] = dfpasto_plot["MES_ANO"].astype(str) if dfpasto_plot["MES_ANO"].dtype == 'period[M]' else dfpasto_plot["MES_ANO"]
 
-st.pyplot(fig)
+# Ordenar por fecha
+dfpasto_plot = dfpasto_plot.sort_values(['FINCA', 'MES_ANO'])
+
+fig = px.line(dfpasto_plot,
+              x="MES_ANO",
+              y="AFORO PLATOMETRO (Kg/m2)",
+              color="FINCA",
+              markers=True,
+              line_dash="FINCA",
+              title="Aforo promedio por mes")
+
+fig.update_traces(marker=dict(size=8), line=dict(width=2.5))
+
+fig.update_layout(
+    height=600,
+    xaxis_tickangle=-45,
+    xaxis_title="Mes/Año",
+    yaxis_title="Aforo Platómetro (Kg/m²)",
+    showlegend=True
+)
+
+fig.update_xaxes(showgrid=True)
+fig.update_yaxes(showgrid=True)
+
+st.plotly_chart(fig, use_container_width=True)
 
 # -------------------------------
 # GRAFICA POR FINCA
