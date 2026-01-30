@@ -299,8 +299,8 @@ st.dataframe(
 pivot6= dfpasto.pivot_table(
     index= "FECHA",
     columns=["FINCA","LOTE"],
-    values="AFORO PLATOMETRO (Kg/m2)","CONSUMO PASTO PLATOMETRO (Kg/vaca/día)","DIAS ROTACION",
-    "DIAS OCUPACION",
+    values=["AFORO PLATOMETRO (Kg/m2)","CONSUMO PASTO PLATOMETRO (Kg/vaca/día)",
+    "DIAS OCUPACION"],
     aggfunc="mean",
     fill_value=0
 )
