@@ -310,8 +310,6 @@ tabla_group = (
 
 st.subheader("📊 Aforo promedio por FINCA y FERTILIZACIÓN")
 st.dataframe(tabla_group, use_container_width=True)
-st.write(dfpasto.columns)
-st.write(dfpasto.columns.tolist())
 
 
 
