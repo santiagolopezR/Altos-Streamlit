@@ -290,7 +290,7 @@ df["relacion conleche"] =df["TOTAL LECHE DIA"] / df["KILOS CONCENTRADO DIA"]
 
 
 df_agrupado2 = df.groupby(["SEMANA", "FINCA"]).agg({
-    "TOTAL LECHE DIA": "sum", 
+    "LECHE TANQUE DIA": "sum", 
     "KILOS CONCENTRADO DIA": "sum", 
     "relacion conleche": "mean"
 }).reset_index()
