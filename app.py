@@ -282,7 +282,15 @@ fig5.update_layout(
 st.plotly_chart(fig5, use_container_width=True)
 
 #------ pedido ideal concentrado ----
+# Convertir a numérico primero
+df["TOTAL LECHE DIA"] = pd.to_numeric(df["TOTAL LECHE DIA"], errors='coerce')
+df["KILOS CONCENTRADO DIA"] = pd.to_numeric(df["KILOS CONCENTRADO DIA"], errors='coerce')
 
+# Rellenar NaN con 0
+df["TOTAL LECHE DIA"] = df["TOTAL LECHE DIA"].fillna(0)
+df["KILOS CONCENTRADO DIA"] = df["KILOS CONCENTRADO DIA"].fillna(0)
+
+# Ahora sí hacer la d
 
 df["relacion conleche"] = np.where(
     df["KILOS CONCENTRADO DIA"] > 0,
