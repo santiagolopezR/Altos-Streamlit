@@ -144,6 +144,8 @@ finca_kpi = st.selectbox("Selecciona finca:", dfpasto["FINCA"].unique(), key="kp
 
 # Filtrar datos de la finca
 data_finca = dfpasto[dfpasto["FINCA"] == finca_kpi].copy()
+#asegurar que FECHA sea datetime
+data_finca["FECHA"] = pd.to_datetime(data_finca["FECHA"], errors='coerce')
 
 # Obtener mes actual y anterior
 data_finca["MES"] = data_finca["FECHA"].dt.to_period("M")
