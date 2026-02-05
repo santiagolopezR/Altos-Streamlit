@@ -240,44 +240,49 @@ st.dataframe(pivot3.sort_index(ascending=False), use_container_width=True)
 
 # ------------------------------- Consumo por finca lote
 st.subheader("📈 CONSUMO KG/VACA/DIA por Lote – Finca específica")
-
 finca_elegida2 = st.selectbox(
     "Selecciona una finca",
     dfpasto["FINCA"].unique(),
     key="finca_consumo")
 
 def grafica_consumo_por_finca(dfpasto, finca):
-    data = dfpasto[dfpasto["FINCA"] == finca]
-
+    data = dfpasto[dfpasto["FINCA"] == finca].copy()
+    
     if data.empty:
         st.warning("No hay datos para esta finca.")
         return
-
-    fig = px.line(data,
-                  x="MES_ANO",
-                  y="CONSUMO PASTO PLATOMETRO (Kg/vaca/día)",
-                  color="LOTE",
-                  markers=True,
-                  line_dash="LOTE",
-                  title=f"Consumo promedio mes – {finca}")
     
-    fig.update_traces(marker=dict(size=8), line=dict(width=2.5))
+    # Convertir MES_ANO a string
+    data["MES_ANO"] = data["MES_ANO"].astype(str)
     
-    fig.update_layout(
-        height=600,
-        xaxis_tickangle=-45,
-        xaxis_title="Mes/Año",
-        yaxis_title="CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"
+    # Agrupar por mes y lote (promedio mensual)
+    data_agrupado = data.groupby(["MES_ANO", "LOTE"])["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"].mean().reset_index()
+    
+    # Ordenar
+    data_agrupado = data_agrupado.sort_values(["LOTE", "MES_ANO"])
+    
+    # Crear gráfica con seaborn
+    fig, ax = plt.subplots(figsize=(15, 6))
+    
+    sns.lineplot(
+        data=data_agrupado,
+        x="MES_ANO",
+        y="CONSUMO PASTO PLATOMETRO (Kg/vaca/día)",
+        hue="LOTE",
+        marker="o",
+        ax=ax
     )
     
-    fig.update_xaxes(showgrid=True)
-    fig.update_yaxes(showgrid=True)
+    ax.set_title(f"Consumo promedio mes – {finca}", fontsize=16)
+    ax.set_xlabel("Mes/Año", fontsize=12)
+    ax.set_ylabel("CONSUMO PASTO PLATOMETRO (Kg/vaca/día)", fontsize=12)
+    plt.xticks(rotation=45)
+    ax.grid(True)
+    plt.tight_layout()
     
-    st.plotly_chart(fig, use_container_width=True)
-
+    st.pyplot(fig)
 
 grafica_consumo_por_finca(dfpasto, finca_elegida2)
-
 #------ Tabla
 
 st.subheader("Consumo promedio por Finca")
