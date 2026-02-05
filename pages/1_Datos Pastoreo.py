@@ -137,7 +137,70 @@ dfpasto["Fertilizacion"] = dfpasto["Fertilizacion"].replace({
 # Quitar fertilizantes completamente vacíos
 dfpasto = dfpasto[dfpasto["Fertilizacion"].str.strip() != ""]
 
-# -------------------------------
+# ---------------------------------------------------------------------------------------------
+st.subheader("🎯 KPIs de Aforo - Mes Actual")
+
+finca_kpi = st.selectbox("Selecciona finca:", dfpasto["FINCA"].unique(), key="kpi_aforo")
+
+# Filtrar datos de la finca
+data_finca = dfpasto[dfpasto["FINCA"] == finca_kpi].copy()
+
+# Obtener mes actual y anterior
+data_finca["MES"] = data_finca["FECHA"].dt.to_period("M")
+mes_actual = data_finca["MES"].max()
+mes_anterior = mes_actual - 1
+
+# Datos del mes actual y anterior
+datos_actual = data_finca[data_finca["MES"] == mes_actual]
+datos_anterior = data_finca[data_finca["MES"] == mes_anterior]
+
+# Calcular métricas
+aforo_actual = datos_actual["AFORO PLATOMETRO (Kg/m2)"].mean()
+aforo_anterior = datos_anterior["AFORO PLATOMETRO (Kg/m2)"].mean()
+delta_aforo = aforo_actual - aforo_anterior if aforo_anterior > 0 else 0
+
+consumo_actual = datos_actual["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"].mean()
+consumo_anterior = datos_anterior["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"].mean()
+delta_consumo = consumo_actual - consumo_anterior if consumo_anterior > 0 else 0
+
+vacas_totales = datos_actual["NUMERO VACAS LOTE"].sum()
+num_lotes = datos_actual["LOTE"].nunique()
+
+# Mostrar KPIs
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.metric(
+        label="📊 Aforo Promedio",
+        value=f"{aforo_actual:.1f} Kg/m²",
+        delta=f"{delta_aforo:.1f} Kg/m²"
+    )
+
+with col2:
+    st.metric(
+        label="🐄 Consumo Promedio",
+        value=f"{consumo_actual:.1f} Kg/vaca",
+        delta=f"{delta_consumo:.1f} Kg/vaca"
+    )
+
+with col3:
+    st.metric(
+        label="🐮 Total Vacas",
+        value=f"{vacas_totales:.0f}",
+        delta=None
+    )
+
+with col4:
+    st.metric(
+        label="🌱 Lotes Activos",
+        value=f"{num_lotes}",
+        delta=None
+    )
+
+
+
+
+
 # GRAFICA GENERAL
 
 st.subheader("📊 Aforo Promedio por Mes – General")
