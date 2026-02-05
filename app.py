@@ -284,7 +284,7 @@ st.plotly_chart(fig5, use_container_width=True)
 #------ pedido ideal concentrado ----
 
  
-agrupado2= df_plot4.groupby(["FINCA","SEMANA"])["TOTAL LECHE DIA"].sum()
+agrupado2= df_plot4.groupby(["FINCA","SEMANA"])["TOTAL LECHE DIA"].sum().reset_index()
 agrupado2["idealcuido"]=  (agrupado2["TOTAL LECHE DIA"]/3.5)/40
 
 st.dataframe(agrupado2)
