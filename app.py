@@ -292,8 +292,9 @@ agrupado2["idealcuido"]=  (agrupado2["TOTAL LECHE DIA"]/3.5)/40
 #Filtrar según selección
 tabla_mostrar = agrupado2[agrupado2["FINCA"] == finca_seleccionada]
 
+tabla_mostrar= tabla_mostrar.sort_values("SEMANA",ascending=False)
 st.dataframe(tabla_mostrar, use_container_width=True)
-st.dataframe(agrupado2)
+
 
 
 
