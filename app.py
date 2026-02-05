@@ -282,7 +282,7 @@ fig5.update_layout(
 st.plotly_chart(fig5, use_container_width=True)
 
 #------ pedido ideal concentrado ----
-agrupado2= df.groupby(["FINCA","SEMANA"])["LECHE TANQUE DIA"].sum()
+agrupado2= df.groupby(["FINCA","MES"])["LECHE TANQUE DIA"].sum()
 
 st.dataframe(agrupado2)
 
