@@ -109,7 +109,7 @@ fig.update_traces(line=dict(width=1.5))  # Líneas más delgadas
 
 fig.update_xaxes(rangeslider_visible=True, tickangle=-45)
 fig.update_layout(
-    width=3000,  # Ancho en pixeles
+    width=6000,  # Ancho en pixeles
     height=600
 )
 
