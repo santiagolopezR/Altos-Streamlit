@@ -258,18 +258,26 @@ st.plotly_chart(fig4, use_container_width=True)
 
 #-------------- vacas ordeño -------------------------------------------------------
 st.subheader("Vacas en ordeño Promedio por Mes")
-vacas= df_plot5.groupby(["MES","FINCA"])["NUMERO VACAS ORDEÑO"].mean().reset_index()
+
+# Preparar datos
+df_vacas = df.copy()
+df_vacas["MES"] = df_vacas["MES"].astype(str)  # Convertir a string
+df_vacas["NUMERO VACAS ORDEÑO"] = pd.to_numeric(df_vacas["NUMERO VACAS ORDEÑO"], errors='coerce')
+
+# Agrupar
+vacas = df_vacas.groupby(["MES","FINCA"])["NUMERO VACAS ORDEÑO"].mean().reset_index()
+
 fig5 = px.bar(vacas, 
               x="MES", 
               y="NUMERO VACAS ORDEÑO", 
-              color="FINCA")  # Faltaba la comilla de cierre
+              color="FINCA",
+              barmode='group')
 
 fig5.update_layout(
     height=500, 
     xaxis_tickangle=-90,
-    barmode='group'  # Agregar esto para barras agrupadas
+    xaxis_title="Mes",
+    yaxis_title="Número de Vacas"
 )
 
 st.plotly_chart(fig5, use_container_width=True)
-st.write(df.columns)
-
