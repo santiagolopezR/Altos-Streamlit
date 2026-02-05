@@ -297,7 +297,6 @@ df_agrupado2 = df.groupby(["SEMANA","FINCA"]).agg({
 
 df_agrupado2["bultos semana ideal"]= (df_agrupado2["LECHE TANQUE DIA"] / 3.5)/40
 st.subheader("Pedido Ideal Concentrado")
-st.dataframe(df_agrupado2, use_container_width=True)
 
 
 df_agrupado3= df.groupby(["SEMANA","FINCA"]).agg({
@@ -305,6 +304,6 @@ df_agrupado3= df.groupby(["SEMANA","FINCA"]).agg({
     "KILOS CONCENTRADO DIA": "sum"
 }).reset_index()
 
-st.dataframe(df)
+
 
 
