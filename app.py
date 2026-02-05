@@ -304,6 +304,7 @@ df_agrupado3= df.groupby(["SEMANA","FINCA"]).agg({
     "KILOS CONCENTRADO DIA": "sum"
 }).reset_index()
 
+st.dataframe(df_agrupado3)
 
 
 
