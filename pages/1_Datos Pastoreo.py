@@ -253,22 +253,27 @@ def grafica_consumo_por_finca(dfpasto, finca):
         st.warning("No hay datos para esta finca.")
         return
 
-    fig, ax = plt.subplots(figsize=(15, 10))
-    sns.lineplot(
-        data=data,
-        x="MES_ANO",
-        y="CONSUMO PASTO PLATOMETRO (Kg/vaca/día)",
-        hue="LOTE",
-        marker="o",
-        errorbar=None,
-        ax=ax
+    fig = px.line(data,
+                  x="MES_ANO",
+                  y="CONSUMO PASTO PLATOMETRO (Kg/vaca/día)",
+                  color="LOTE",
+                  markers=True,
+                  line_dash="LOTE",
+                  title=f"Consumo promedio mes – {finca}")
+    
+    fig.update_traces(marker=dict(size=8), line=dict(width=2.5))
+    
+    fig.update_layout(
+        height=600,
+        xaxis_tickangle=-45,
+        xaxis_title="Mes/Año",
+        yaxis_title="CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"
     )
-
-    ax.set_title(f"Consumo promedio mes – {finca}", fontsize=16)
-    plt.xticks(rotation=45)
-    ax.grid(True)
-
-    st.pyplot(fig)
+    
+    fig.update_xaxes(showgrid=True)
+    fig.update_yaxes(showgrid=True)
+    
+    st.plotly_chart(fig, use_container_width=True)
 
 
 grafica_consumo_por_finca(dfpasto, finca_elegida2)
