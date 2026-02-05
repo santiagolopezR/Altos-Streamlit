@@ -289,11 +289,11 @@ df["KILOS CONCENTRADO DIA"] = pd.to_numeric(df["KILOS CONCENTRADO DIA"], errors=
 
 
 df_agrupado2 = df.groupby(["SEMANA","FINCA"]).agg({
-    "LECHE TANQUE DIA": "sum", 
+    "TOTAL LECHE DIA": "sum", 
     "KILOS CONCENTRADO DIA": "sum"
 }).reset_index()
 
-df_agrupado2["bultos semana ideal"]= (df_agrupado2["LECHE TANQUE DIA"] / 3.5)/40
+#df_agrupado2["bultos semana ideal"]= (df_agrupado2["LECHE TANQUE DIA"] / 3.5)/40
 st.subheader("Pedido Ideal Concentrado")
 st.dataframe(df_agrupado2)
 
