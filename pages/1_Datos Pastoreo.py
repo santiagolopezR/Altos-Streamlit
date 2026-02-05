@@ -199,7 +199,7 @@ def grafica_aforo_por_finca(dfpasto, finca):
     data["MES_ANO"] = data["MES_ANO"].astype(str)
     
     # Ordenar por fecha
-    data = data.sort_values("MES_ANO")
+    data = data.sort_values(["LOTE", "MES_ANO"])
     
     fig = px.line(data,
                   x="MES_ANO",
