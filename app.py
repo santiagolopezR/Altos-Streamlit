@@ -97,20 +97,17 @@ st.sidebar.success("Seleccione una página 🤌.")
 # -----------------------------------------------------
 st.subheader("📊 Producción de leche por día")
 
-# Ordenar por fecha antes de graficar
-df_sorted = df.sort_values(['FINCA', 'MES_ANO'])
+df_sorted = df.sort_values(['FINCA', 'FECHA'])
 
 fig = px.line(df_sorted, 
-              x="MES_ANO", 
+              x="FECHA",  # Usar FECHA en lugar de MES_ANO
               y="LECHE TANQUE DIA", 
               color="FINCA", 
               line_dash="FINCA")
 
-fig.update_xaxes(
-    rangeslider_visible=True,
-    tickangle=-45
-)
+fig.update_traces(line=dict(width=1.5))  # Líneas más delgadas
 
+fig.update_xaxes(rangeslider_visible=True, tickangle=-45)
 fig.update_layout(height=600)
 
 st.plotly_chart(fig, use_container_width=True)
