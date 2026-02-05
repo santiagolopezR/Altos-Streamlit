@@ -284,4 +284,4 @@ st.plotly_chart(fig5, use_container_width=True)
 
 #------ pedido ideal concentrado ----
 
-df_plot5.group_by(["SEMANA"],["FINCA"]).agg({"LECHE TANQUE DIA":sum, "KILOS CONCENTRADO DIA":sum, "RELACION LECHE CONCENTRADO":mean}).rest_index()
+df_plot5.groupby(["SEMANA"],["FINCA"]).agg({"LECHE TANQUE DIA":sum, "KILOS CONCENTRADO DIA":sum, "RELACION LECHE CONCENTRADO":mean}).rest_index()
