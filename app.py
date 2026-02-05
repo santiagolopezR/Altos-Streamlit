@@ -292,7 +292,7 @@ df["KILOS CONCENTRADO DIA"] = df["KILOS CONCENTRADO DIA"].fillna(0)
 
 # Ahora sí hacer la d
 
-df["relacion conleche"] =df["KILOS CONCENTRADO DIA"] > 0,df["TOTAL LECHE DIA"] / df["KILOS CONCENTRADO DIA"]
+df["relacion conleche"] =df["TOTAL LECHE DIA"] / df["KILOS CONCENTRADO DIA"]
 
 
 df_agrupado2 = df.groupby(["SEMANA", "FINCA"]).agg({
