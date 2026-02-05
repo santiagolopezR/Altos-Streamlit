@@ -169,7 +169,7 @@ st.dataframe(pivot.sort_index(ascending=False), use_container_width=True)
 # -----------------------------------------------------
 st.subheader("Promedio por finca 🐄")
 df["promedio"] = df["LECHE TANQUE DIA"] / df["NUMERO VACAS ORDEÑO"]
-
+df["promedio"]=df[df["promedio"]<35]
 df_plot = df.copy()
 df_plot["SEMANA"] = df_plot["FECHA"].dt.strftime('%Y-W%V')  # Año-Semana
 
