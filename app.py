@@ -284,4 +284,7 @@ st.plotly_chart(fig5, use_container_width=True)
 
 #------ pedido ideal concentrado ----
 
-df_plot5.groupby(["SEMANA"],["FINCA"]).agg({"LECHE TANQUE DIA":sum, "KILOS CONCENTRADO DIA":sum, "RELACION LECHE CONCENTRADO":mean}).rest_index()
+df_agrupado=df_plot5.groupby(["SEMANA"],["FINCA"]).agg({"LECHE TANQUE DIA":sum, "KILOS CONCENTRADO DIA":sum, "RELACION LECHE CONCENTRADO":mean}).rest_index()
+df_afrupado["bultos semana ideal"]= (df_agrupado["LECHE TANQUE DIA"] / 3.5)/40
+st.subheader("Pedido Ideal Concentrado")
+st.dataframe(df_agrupado, use_container_width=True)
