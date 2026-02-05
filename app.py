@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+import numpy as np
 import base64
 import json
 from io import BytesIO
@@ -283,7 +283,13 @@ st.plotly_chart(fig5, use_container_width=True)
 
 #------ pedido ideal concentrado ----
 
-df["relacion conleche"]= df["TOTAL LECHE DIA"]/df["KILOS CONCENTRADO DIA"].replace(0, pd.NA)
+
+df["relacion conleche"] = np.where(
+    df["KILOS CONCENTRADO DIA"] > 0,
+    df["TOTAL LECHE DIA"] / df["KILOS CONCENTRADO DIA"],
+    0
+)
+
 
 df_agrupado2 = df.groupby(["SEMANA", "FINCA"]).agg({
     "TOTAL LECHE DIA": "sum", 
