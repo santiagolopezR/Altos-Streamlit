@@ -189,31 +189,43 @@ finca_elegida = st.selectbox(
 
 
 def grafica_aforo_por_finca(dfpasto, finca):
-    data = dfpasto[dfpasto["FINCA"] == finca]
-
+    data = dfpasto[dfpasto["FINCA"] == finca].copy()
+    
     if data.empty:
         st.warning("No hay datos para esta finca.")
         return
-
-    fig, ax = plt.subplots(figsize=(15, 10))
-    sns.lineplot(
-        data=data,
-        x="MES_ANO",
-        y="AFORO PLATOMETRO (Kg/m2)",
-        hue="LOTE",
-        marker="o",
-        errorbar=None,
-        ax=ax
+    
+    # Convertir MES_ANO a string si es Period
+    data["MES_ANO"] = data["MES_ANO"].astype(str)
+    
+    # Ordenar por fecha
+    data = data.sort_values("MES_ANO")
+    
+    fig = px.line(data,
+                  x="MES_ANO",
+                  y="AFORO PLATOMETRO (Kg/m2)",
+                  color="LOTE",
+                  markers=True,
+                  line_dash="LOTE",
+                  title=f"Aforo promedio mes – {finca}")
+    
+    fig.update_traces(marker=dict(size=8), line=dict(width=2.5))
+    
+    fig.update_layout(
+        height=600,
+        xaxis_tickangle=-45,
+        xaxis_title="Mes/Año",
+        yaxis_title="Aforo Platómetro (Kg/m²)"
     )
+    
+    fig.update_xaxes(showgrid=True)
+    fig.update_yaxes(showgrid=True)
+    
+    st.plotly_chart(fig, use_container_width=True)
 
-    ax.set_title(f"Aforo promedio mes – {finca}", fontsize=16)
-    plt.xticks(rotation=45)
-    ax.grid(True)
-
-    st.pyplot(fig)
-
-
+# Llamar la función
 grafica_aforo_por_finca(dfpasto, finca_elegida)
+
 
 #------ tabla
 
