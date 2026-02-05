@@ -292,11 +292,7 @@ df["KILOS CONCENTRADO DIA"] = df["KILOS CONCENTRADO DIA"].fillna(0)
 
 # Ahora sí hacer la d
 
-df["relacion conleche"] = np.where(
-    df["KILOS CONCENTRADO DIA"] > 0,
-    df["TOTAL LECHE DIA"] / df["KILOS CONCENTRADO DIA"],
-    0
-)
+df["relacion conleche"] =df["KILOS CONCENTRADO DIA"] > 0,df["TOTAL LECHE DIA"] / df["KILOS CONCENTRADO DIA"]
 
 
 df_agrupado2 = df.groupby(["SEMANA", "FINCA"]).agg({
@@ -313,11 +309,3 @@ st.write(df.columns.tolist())
 
 
 
-st.write("Total Leche DIA - muestra:")
-st.write(df["TOTAL LECHE DIA"].head(10))
-
-st.write("Kilos Concentrado DIA - muestra:")
-st.write(df["KILOS CONCENTRADO DIA"].head(10))
-
-st.write("Valores únicos en Concentrado:")
-st.write(df["KILOS CONCENTRADO DIA"].unique())
