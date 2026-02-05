@@ -108,7 +108,10 @@ fig = px.line(df_sorted,
 fig.update_traces(line=dict(width=1.5))  # Líneas más delgadas
 
 fig.update_xaxes(rangeslider_visible=True, tickangle=-45)
-fig.update_layout(height=600)
+fig.update_layout(
+    width=3000,  # Ancho en pixeles
+    height=600
+)
 
 st.plotly_chart(fig, use_container_width=True)
 
