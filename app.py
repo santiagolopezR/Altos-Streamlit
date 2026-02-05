@@ -217,7 +217,6 @@ pivot2 = df_tabla2.pivot_table(
 st.dataframe(pivot2.sort_index(ascending=False), use_container_width=True)
 
 
-st.subheader("Relacion Leche:Concentrado")
 
 df_plot5 = df_plot.copy()
 
@@ -293,4 +292,4 @@ df_agrupado2["bultos semana ideal"]= (df_agrupado["LECHE TANQUE DIA"] / 3.5)/40
 st.subheader("Pedido Ideal Concentrado")
 st.dataframe(df_agrupado2, use_container_width=True)
 
-st.write(df.columns)
+st.write(df.columns.tolist())
