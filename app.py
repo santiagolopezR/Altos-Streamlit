@@ -282,11 +282,17 @@ fig5.update_layout(
 st.plotly_chart(fig5, use_container_width=True)
 
 #------ pedido ideal concentrado ----
-
+#selector de finca 
+fincas_disponibles = df["FINCA"].unique().tolist()
+finca_seleccionada = st.selectbox("Seleccione una finca:", fincas_disponibles)
  
 agrupado2= df_plot4.groupby(["FINCA","SEMANA"])["TOTAL LECHE DIA"].sum().reset_index()
 agrupado2["idealcuido"]=  (agrupado2["TOTAL LECHE DIA"]/3.5)/40
 
+#Filtrar según selección
+tabla_mostrar = agrupado2[agrupado2["FINCA"] == finca_seleccionada]
+
+st.dataframe(tabla_mostrar, use_container_width=True)
 st.dataframe(agrupado2)
 
 
