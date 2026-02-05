@@ -227,21 +227,33 @@ df_plot5["relacionl:c"]= df_plot5["LECHE TANQUE DIA"] / df_plot5["KILOS CONCENTR
 df_plot5 = df_plot5[(df_plot5["relacionl:c"] <= 5) & (df_plot5["relacionl:c"] >= 2)]
 
 
-fig4 = px.line(df_plot5, 
-               x="MES", 
-               y="relacionl:c",
+st.subheader("Relacion Leche:Concentrado")
+
+df_plot4 = df.copy()
+df_plot4["SEMANA"] = df_plot4["FECHA"].dt.strftime('%Y-W%V')  # Convertir a string
+df_plot4["RELACION LECHE CONCENTRADO"] = df_plot4["RELACION LECHE CONCENTRADO"].astype(float)
+
+# Filtrar valores entre 2 y 5
+df_plot4 = df_plot4[(df_plot4["RELACION LECHE CONCENTRADO"] <= 5) & 
+                     (df_plot4["RELACION LECHE CONCENTRADO"] >= 2)]
+
+# Agrupar por semana
+df_agrupado = df_plot4.groupby(["SEMANA", "FINCA"])["RELACION LECHE CONCENTRADO"].mean().reset_index()
+
+fig4 = px.line(df_agrupado, 
+               x="SEMANA", 
+               y="RELACION LECHE CONCENTRADO",
                color="FINCA",
                markers=True,
                line_dash="FINCA",
                title="Relacion Leche:Concentrado por Finca")
 
 fig4.update_traces(marker=dict(size=8), line=dict(width=2.5))
-fig4.update_layout(height=500, xaxis_tickangle=-90)
-fig4.update_xaxes(
-    rangeslider_visible=True,
-    tickangle=-45
-)
+fig4.update_xaxes(rangeslider_visible=True, tickangle=-90)
+fig4.update_layout(height=500)
+
 st.plotly_chart(fig4, use_container_width=True)
+
 
 
 #-------------- vacas ordeño -------------------------------------------------------
