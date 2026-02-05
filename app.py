@@ -281,7 +281,10 @@ fig5.update_layout(
 
 st.plotly_chart(fig5, use_container_width=True)
 
-#------ pedido ideal concentrado ----
+#------ pedido ideal concentrado ---
+
+st.subheader("Cantidad de bultos ideal")
+
 #selector de finca 
 fincas_disponibles = df["FINCA"].unique().tolist()
 finca_seleccionada = st.selectbox("Seleccione una finca:", fincas_disponibles)
