@@ -283,7 +283,8 @@ st.plotly_chart(fig5, use_container_width=True)
 
 #------ pedido ideal concentrado ----
 
-df["relacion conleche"]= df["TOTAL LECHE DIA"]/df["KILOS CONCENTRADO DIA"]
+df["relacion conleche"]= df["TOTAL LECHE DIA"]/df["KILOS CONCENTRADO DIA"].replace(0, pd.NA)
+
 df_agrupado2 = df.groupby(["SEMANA", "FINCA"]).agg({
     "TOTAL LECHE DIA": "sum", 
     "KILOS CONCENTRADO DIA": "sum", 
