@@ -282,21 +282,9 @@ fig5.update_layout(
 st.plotly_chart(fig5, use_container_width=True)
 
 #------ pedido ideal concentrado ----
-# Convertir a numérico primero
-df["TOTAL LECHE DIA"] = pd.to_numeric(df["TOTAL LECHE DIA"], errors='coerce')
-df["KILOS CONCENTRADO DIA"] = pd.to_numeric(df["KILOS CONCENTRADO DIA"], errors='coerce')
+agrupado2= df.groupby(["FINCA","SEMANA"])["LECHE TOTAL DIA"].sum()
 
-
-
-df_agrupado2 = df.groupby(["SEMANA","FINCA"]).agg({
-    "TOTAL LECHE DIA": "sum", 
-    "KILOS CONCENTRADO DIA": "sum"
-}).reset_index()
-
-#df_agrupado2["bultos semana ideal"]= (df_agrupado2["LECHE TANQUE DIA"] / 3.5)/40
-st.subheader("Pedido Ideal Concentrado")
-st.dataframe(df_agrupado2)
-
+st.dataframe(agrupado2)
 
 
 
