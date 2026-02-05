@@ -290,7 +290,7 @@ df_agrupado2 = df.groupby(["SEMANA", "FINCA"]).agg({
     "relacion conleche": "mean"
 }).reset_index()
 
-df_agrupado2["bultos semana ideal"]= (df_agrupado2["TOTAL LECHE DIA"] / 3.5)/40)
+df_agrupado2["bultos semana ideal"]= df_agrupado2["TOTAL LECHE DIA"] / 3.5)/40)
 st.subheader("Pedido Ideal Concentrado")
 st.dataframe(df_agrupado2, use_container_width=True)
 
