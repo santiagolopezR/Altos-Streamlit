@@ -165,7 +165,8 @@ consumo_actual = datos_actual["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"].mean()
 consumo_anterior = datos_anterior["CONSUMO PASTO PLATOMETRO (Kg/vaca/día)"].mean()
 delta_consumo = consumo_actual - consumo_anterior if consumo_anterior > 0 else 0
 
-vacas_totales = datos_actual["NUMERO VACAS LOTE"].sum()
+# Obtener el número de vacas más reciente del mes actual
+vacas_totales = datos_actual["NUMERO VACAS LOTE"].iloc[-1] if len(datos_actual) > 0 else 0
 num_lotes = datos_actual["LOTE"].nunique()
 
 # Mostrar KPIs
